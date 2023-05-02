@@ -6,6 +6,7 @@ import {
   HeaderContext,
   InlineCodeContext,
   InlineHeaderContext,
+  InlineTextContext,
   MarkdownContext,
   MarkdownParser,
   TextContentContext,
@@ -50,13 +51,20 @@ class HelperVisitor
   visitInlineHeader(ctx: InlineHeaderContext) {
     // console.log("visitHeader", ctx);
     return {
-      tag: "header",
+      tag: "inline-header",
       attr: {
         level: ctx.header().text.length - 1,
       },
       body: this.visitChildren(ctx.textContent()),
     };
   }
+
+  visitInlineText(ctx: InlineTextContext){
+    return {
+      tag: "inline-text",
+      body: this.visitChildren(ctx.textContent()),
+    };
+  };
 
   visitTextContent(ctx: TextContentContext) {
     return {

@@ -26,9 +26,9 @@ INLINE_CODE: BACKTICK ~[\r\n`]+ BACKTICK;
 
 BLOCK_CODE: '```' ~[`]+ '```';
 
-BACKTICK: '`';
-
 NL: '\r'? '\n';
+
+fragment BACKTICK: '`';
 
 fragment WS: [ \t];
 
