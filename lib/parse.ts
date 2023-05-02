@@ -14,7 +14,7 @@ import {
 import { MarkdownVisitor } from "./g4/MarkdownVisitor";
 import { ParseTreeVisitor, ParseTree } from "antlr4";
 
-export function parseMdAST(input: string): MarkdownContext {
+export function parse(input: string): MarkdownContext {
   const inputStream = CharStreams.fromString(input);
   const lexer = new MarkdownLexer(inputStream);
   const tokens = new CommonTokenStream(lexer);
