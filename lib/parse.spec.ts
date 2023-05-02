@@ -8,7 +8,6 @@ describe("md-parser", () => {
     const tree = parseMdAST(
       readFileSync(join(__filename, "../", "readme.md"), "utf-8")
     );
-    console.log(tree.toStringTree());
-    expect(tree.toString()).toMatchInlineSnapshot('"[]"');
+    expect(tree).toMatchFileSnapshot("./__snapshots__/parse.md.snap");
   });
 });

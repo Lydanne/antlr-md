@@ -5,13 +5,13 @@ import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
 import { MarkdownContext } from "./MarkdownParser";
 import { BlockContext } from "./MarkdownParser";
+import { InlineHeaderContext } from "./MarkdownParser";
 import { HeaderContext } from "./MarkdownParser";
-import { HeaderFlagContext } from "./MarkdownParser";
-import { UnorderedListContext } from "./MarkdownParser";
-import { OrderedListContext } from "./MarkdownParser";
-import { TextLineContext } from "./MarkdownParser";
 import { InlineTextContext } from "./MarkdownParser";
-import { BlankLineContext } from "./MarkdownParser";
+import { TextContentContext } from "./MarkdownParser";
+import { BlockCodeContext } from "./MarkdownParser";
+import { TextContext } from "./MarkdownParser";
+import { InlineCodeContext } from "./MarkdownParser";
 
 
 /**
@@ -42,6 +42,17 @@ export interface MarkdownListener extends ParseTreeListener {
 	exitBlock?: (ctx: BlockContext) => void;
 
 	/**
+	 * Enter a parse tree produced by `MarkdownParser.inlineHeader`.
+	 * @param ctx the parse tree
+	 */
+	enterInlineHeader?: (ctx: InlineHeaderContext) => void;
+	/**
+	 * Exit a parse tree produced by `MarkdownParser.inlineHeader`.
+	 * @param ctx the parse tree
+	 */
+	exitInlineHeader?: (ctx: InlineHeaderContext) => void;
+
+	/**
 	 * Enter a parse tree produced by `MarkdownParser.header`.
 	 * @param ctx the parse tree
 	 */
@@ -51,50 +62,6 @@ export interface MarkdownListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitHeader?: (ctx: HeaderContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `MarkdownParser.headerFlag`.
-	 * @param ctx the parse tree
-	 */
-	enterHeaderFlag?: (ctx: HeaderFlagContext) => void;
-	/**
-	 * Exit a parse tree produced by `MarkdownParser.headerFlag`.
-	 * @param ctx the parse tree
-	 */
-	exitHeaderFlag?: (ctx: HeaderFlagContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `MarkdownParser.unorderedList`.
-	 * @param ctx the parse tree
-	 */
-	enterUnorderedList?: (ctx: UnorderedListContext) => void;
-	/**
-	 * Exit a parse tree produced by `MarkdownParser.unorderedList`.
-	 * @param ctx the parse tree
-	 */
-	exitUnorderedList?: (ctx: UnorderedListContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `MarkdownParser.orderedList`.
-	 * @param ctx the parse tree
-	 */
-	enterOrderedList?: (ctx: OrderedListContext) => void;
-	/**
-	 * Exit a parse tree produced by `MarkdownParser.orderedList`.
-	 * @param ctx the parse tree
-	 */
-	exitOrderedList?: (ctx: OrderedListContext) => void;
-
-	/**
-	 * Enter a parse tree produced by `MarkdownParser.textLine`.
-	 * @param ctx the parse tree
-	 */
-	enterTextLine?: (ctx: TextLineContext) => void;
-	/**
-	 * Exit a parse tree produced by `MarkdownParser.textLine`.
-	 * @param ctx the parse tree
-	 */
-	exitTextLine?: (ctx: TextLineContext) => void;
 
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.inlineText`.
@@ -108,14 +75,47 @@ export interface MarkdownListener extends ParseTreeListener {
 	exitInlineText?: (ctx: InlineTextContext) => void;
 
 	/**
-	 * Enter a parse tree produced by `MarkdownParser.blankLine`.
+	 * Enter a parse tree produced by `MarkdownParser.textContent`.
 	 * @param ctx the parse tree
 	 */
-	enterBlankLine?: (ctx: BlankLineContext) => void;
+	enterTextContent?: (ctx: TextContentContext) => void;
 	/**
-	 * Exit a parse tree produced by `MarkdownParser.blankLine`.
+	 * Exit a parse tree produced by `MarkdownParser.textContent`.
 	 * @param ctx the parse tree
 	 */
-	exitBlankLine?: (ctx: BlankLineContext) => void;
+	exitTextContent?: (ctx: TextContentContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `MarkdownParser.blockCode`.
+	 * @param ctx the parse tree
+	 */
+	enterBlockCode?: (ctx: BlockCodeContext) => void;
+	/**
+	 * Exit a parse tree produced by `MarkdownParser.blockCode`.
+	 * @param ctx the parse tree
+	 */
+	exitBlockCode?: (ctx: BlockCodeContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `MarkdownParser.text`.
+	 * @param ctx the parse tree
+	 */
+	enterText?: (ctx: TextContext) => void;
+	/**
+	 * Exit a parse tree produced by `MarkdownParser.text`.
+	 * @param ctx the parse tree
+	 */
+	exitText?: (ctx: TextContext) => void;
+
+	/**
+	 * Enter a parse tree produced by `MarkdownParser.inlineCode`.
+	 * @param ctx the parse tree
+	 */
+	enterInlineCode?: (ctx: InlineCodeContext) => void;
+	/**
+	 * Exit a parse tree produced by `MarkdownParser.inlineCode`.
+	 * @param ctx the parse tree
+	 */
+	exitInlineCode?: (ctx: InlineCodeContext) => void;
 }
 

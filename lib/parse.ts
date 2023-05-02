@@ -1,10 +1,15 @@
 import { MarkdownLexer } from "./g4/MarkdownLexer";
 import { CharStreams, CommonTokenStream } from "antlr4ts";
 import {
+  BlockCodeContext,
   BlockContext,
   HeaderContext,
+  InlineCodeContext,
+  InlineHeaderContext,
   MarkdownContext,
   MarkdownParser,
+  TextContentContext,
+  TextContext,
 } from "./g4/MarkdownParser";
 import { MarkdownVisitor } from "./g4/MarkdownVisitor";
 import { ParseTreeVisitor, ParseTree } from "antlr4";
@@ -15,118 +20,79 @@ export function parseMdAST(input: string): MarkdownContext {
   const tokens = new CommonTokenStream(lexer);
   const parser = new MarkdownParser(tokens);
   const tree = parser.markdown();
-  const stack: any[] = [];
-
-  // class HelperListener implements MarkdownListener {
-  //   enterEveryRule(ctx: any) {
-  //     stack.push(ctx);
-  //   }
-
-  //   exitEveryRule(ctx: any) {
-  //     console.log(
-  //       "stack:",
-  //       JSON.stringify(stack.map((item) => item.constructor.name)),
-  //       "ctx:",
-  //       ctx.constructor.name,
-  //       "text:",
-  //       ctx.text
-  //     );
-
-  //     stack.pop();
-  //   }
-  // }
-
-  class HelperVisitor
-    extends ParseTreeVisitor<any>
-    implements MarkdownVisitor<any>
-  {
-    // visitMarkdown(ctx: MarkdownContext) {
-    //   console.log("visitMarkdown", ctx.text);
-
-    //   return {
-    //     tag: "markdown",
-    //     text: ctx.text,
-    //     body: this.visitChildren(ctx),
-    //   };
-    // }
-
-    visitBlock(ctx: BlockContext) {
-      console.log("visitBlock", ctx.text);
-      return {
-        tag: "block",
-        text: ctx.text,
-        body: this.visitChildren(ctx),
-      };
-    }
-
-    visitHeader(ctx: any) {
-      console.log("visitHeader", ctx.text);
-      return {
-        tag: "header",
-        text: ctx.text,
-        body: this.visitChildren(ctx),
-      };
-    }
-
-    visitHeaderFlag(ctx: any) {
-      console.log("visitHeaderFlag", ctx.text);
-      return {
-        tag: "headerFlag",
-        text: ctx.text,
-        body: this.visitChildren(ctx),
-      };
-    }
-
-    // visitUnorderedList(ctx: any) {
-    //   console.log("visitUnorderedList", ctx.text);
-    //   return "visitUnorderedList." + this.visitChildren(ctx);
-    // }
-
-    // visitOrderedList(ctx: any) {
-    //   console.log("visitOrderedList", ctx.text);
-    //   return "visitOrderedList." + this.visitChildren(ctx);
-    // }
-
-    visitTextLine(ctx: any) {
-      console.log(
-        "visitTextLine",
-        ctx.text,
-        ctx.parentCtx instanceof HeaderContext
-      );
-      if (ctx.parentCtx instanceof HeaderContext) {
-        return this.visitHeader(ctx.parentCtx as HeaderContext);
-      }
-      return {
-        tag: "textLine",
-        text: ctx.text,
-        body: this.visitChildren(ctx),
-      };
-    }
-
-    visitInlineText(ctx: any) {
-      console.log("visitInlineText", ctx.text);
-
-      return {
-        tag: "inlineText",
-        text: ctx.text,
-        body: this.visitChildren(ctx),
-      };
-    }
-
-    // visitBlankLine(ctx: any) {
-    //   console.log("visitBlankLine", ctx.text);
-    //   return {
-    //     tag: "blankLine",
-    //     text: ctx.text,
-    //     body: this.visitChildren(ctx),
-    //   };
-    // }
-  }
 
   const visitor = new HelperVisitor();
   const result = visitor.visit(tree as unknown as ParseTree);
 
-  console.log("result", JSON.stringify(result, null, 2));
+  return result;
+}
 
-  return tree;
+class HelperVisitor
+  extends ParseTreeVisitor<any>
+  implements MarkdownVisitor<any>
+{
+  visitMarkdown(ctx: MarkdownContext) {
+    // console.log("visitMarkdown");
+    return {
+      tag: "markdown",
+      body: this.visitChildren(ctx),
+    };
+  }
+
+  visitBlock(ctx: BlockContext) {
+    // console.log("visitBlock", ctx);
+    return {
+      tag: "block",
+      body: this.visitChildren(ctx),
+    };
+  }
+
+  visitInlineHeader(ctx: InlineHeaderContext) {
+    // console.log("visitHeader", ctx);
+    return {
+      tag: "header",
+      attr: {
+        level: ctx.header().text.length - 1,
+      },
+      body: this.visitChildren(ctx.textContent()),
+    };
+  }
+
+  visitTextContent(ctx: TextContentContext) {
+    return {
+      tag: "text-content",
+      body: this.visitChildren(ctx),
+    };
+  }
+
+  visitText(ctx: TextContext) {
+    // console.log("visitText", ctx);
+    return {
+      tag: "text",
+      content: ctx.text,
+    };
+  }
+
+  visitInlineCode(ctx: InlineCodeContext) {
+    // console.log("visitInlineCode", ctx);
+    return {
+      tag: "inline-code",
+      content: ctx.text,
+    };
+  }
+
+  visitBlockCode(ctx: BlockCodeContext) {
+    // console.log("visitBlockCode", ctx);
+    const text = ctx.BLOCK_CODE().text;
+    const firstLnIndex = text.indexOf("\n");
+    const lang = text.substring(3, firstLnIndex);
+    const content = text.substring(firstLnIndex + 1, text.length - 3);
+    return {
+      tag: "block-code",
+      attr: {
+        lang,
+      },
+      content,
+    };
+  }
 }

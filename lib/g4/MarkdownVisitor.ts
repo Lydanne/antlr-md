@@ -5,13 +5,13 @@ import { ParseTreeVisitor } from "antlr4ts/tree/ParseTreeVisitor";
 
 import { MarkdownContext } from "./MarkdownParser";
 import { BlockContext } from "./MarkdownParser";
+import { InlineHeaderContext } from "./MarkdownParser";
 import { HeaderContext } from "./MarkdownParser";
-import { HeaderFlagContext } from "./MarkdownParser";
-import { UnorderedListContext } from "./MarkdownParser";
-import { OrderedListContext } from "./MarkdownParser";
-import { TextLineContext } from "./MarkdownParser";
 import { InlineTextContext } from "./MarkdownParser";
-import { BlankLineContext } from "./MarkdownParser";
+import { TextContentContext } from "./MarkdownParser";
+import { BlockCodeContext } from "./MarkdownParser";
+import { TextContext } from "./MarkdownParser";
+import { InlineCodeContext } from "./MarkdownParser";
 
 
 /**
@@ -37,39 +37,18 @@ export interface MarkdownVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitBlock?: (ctx: BlockContext) => Result;
 
 	/**
+	 * Visit a parse tree produced by `MarkdownParser.inlineHeader`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitInlineHeader?: (ctx: InlineHeaderContext) => Result;
+
+	/**
 	 * Visit a parse tree produced by `MarkdownParser.header`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	visitHeader?: (ctx: HeaderContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by `MarkdownParser.headerFlag`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitHeaderFlag?: (ctx: HeaderFlagContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by `MarkdownParser.unorderedList`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitUnorderedList?: (ctx: UnorderedListContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by `MarkdownParser.orderedList`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitOrderedList?: (ctx: OrderedListContext) => Result;
-
-	/**
-	 * Visit a parse tree produced by `MarkdownParser.textLine`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitTextLine?: (ctx: TextLineContext) => Result;
 
 	/**
 	 * Visit a parse tree produced by `MarkdownParser.inlineText`.
@@ -79,10 +58,31 @@ export interface MarkdownVisitor<Result> extends ParseTreeVisitor<Result> {
 	visitInlineText?: (ctx: InlineTextContext) => Result;
 
 	/**
-	 * Visit a parse tree produced by `MarkdownParser.blankLine`.
+	 * Visit a parse tree produced by `MarkdownParser.textContent`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitBlankLine?: (ctx: BlankLineContext) => Result;
+	visitTextContent?: (ctx: TextContentContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `MarkdownParser.blockCode`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitBlockCode?: (ctx: BlockCodeContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `MarkdownParser.text`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitText?: (ctx: TextContext) => Result;
+
+	/**
+	 * Visit a parse tree produced by `MarkdownParser.inlineCode`.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	visitInlineCode?: (ctx: InlineCodeContext) => Result;
 }
 

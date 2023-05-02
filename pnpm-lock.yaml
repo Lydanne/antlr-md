@@ -702,10 +702,10 @@ packages:
     version: 17.0.2
     dev: true
 
-  registry.npmjs.org/rollup@3.21.1:
-    resolution: {integrity: sha512-GpUgqWCw56OSiBKf7lcAITstYiBV1/EKaKYPl9r8HgAxc6/qYAVw1PaHWnvHWFziRaf4HsVCDLq/IGtBi1K/Zw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/rollup/-/rollup-3.21.1.tgz}
+  registry.npmjs.org/rollup@3.21.3:
+    resolution: {integrity: sha512-VnPfEG51nIv2xPLnZaekkuN06q9ZbnyDcLkaBdJa/W7UddyhOfMP2yOPziYQfeY7k++fZM8FdQIummFN5y14kA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/rollup/-/rollup-3.21.3.tgz}
     name: rollup
-    version: 3.21.1
+    version: 3.21.3
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -769,10 +769,10 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  registry.npmjs.org/tinybench@2.4.0:
-    resolution: {integrity: sha512-iyziEiyFxX4kyxSp+MtY1oCH/lvjH3PxFN8PGCDeqcZWAJ/i+9y+nL85w99PxVzrIvew/GSkSbDYtiGVa85Afg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/tinybench/-/tinybench-2.4.0.tgz}
+  registry.npmjs.org/tinybench@2.5.0:
+    resolution: {integrity: sha512-kRwSG8Zx4tjF9ZiyH4bhaebu+EDz1BOx9hOigYHlUW4xxI/wKIUQUqo018UlU4ar6ATPBsaMrdbKZ+tmPdohFA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/tinybench/-/tinybench-2.5.0.tgz}
     name: tinybench
-    version: 2.4.0
+    version: 2.5.0
     dev: true
 
   registry.npmjs.org/tinypool@0.4.0:
@@ -865,7 +865,7 @@ packages:
       '@types/node': registry.npmjs.org/@types/node@18.16.3
       esbuild: registry.npmjs.org/esbuild@0.17.18
       postcss: registry.npmjs.org/postcss@8.4.23
-      rollup: registry.npmjs.org/rollup@3.21.1
+      rollup: registry.npmjs.org/rollup@3.21.3
     optionalDependencies:
       fsevents: registry.npmjs.org/fsevents@2.3.2
     dev: true
@@ -924,7 +924,7 @@ packages:
       source-map: registry.npmjs.org/source-map@0.6.1
       std-env: registry.npmjs.org/std-env@3.3.2
       strip-literal: registry.npmjs.org/strip-literal@1.0.1
-      tinybench: registry.npmjs.org/tinybench@2.4.0
+      tinybench: registry.npmjs.org/tinybench@2.5.0
       tinypool: registry.npmjs.org/tinypool@0.4.0
       vite: registry.npmjs.org/vite@4.3.2(@types/node@18.16.3)
       vite-node: registry.npmjs.org/vite-node@0.30.1(@types/node@18.16.3)

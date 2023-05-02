@@ -28,48 +28,32 @@ import { MarkdownVisitor } from "./MarkdownVisitor";
 
 
 export class MarkdownParser extends Parser {
-	public static readonly BOLD_TEXT = 1;
-	public static readonly ITALIC_TEXT = 2;
+	public static readonly HEADER = 1;
+	public static readonly CHAR = 2;
 	public static readonly INLINE_CODE = 3;
-	public static readonly CODE_BLOCK = 4;
-	public static readonly TEXT = 5;
-	public static readonly HASH = 6;
-	public static readonly HASH_WS = 7;
-	public static readonly STAR = 8;
-	public static readonly DIGITS = 9;
-	public static readonly DOT = 10;
-	public static readonly WS = 11;
-	public static readonly UNDERSCORE = 12;
-	public static readonly BACKTICK = 13;
-	public static readonly ASTERISK = 14;
-	public static readonly DOUBLE_ASTERISK = 15;
-	public static readonly DOUBLE_UNDERSCORE = 16;
-	public static readonly TRIPLE_BACKTICK = 17;
-	public static readonly NL = 18;
+	public static readonly BLOCK_CODE = 4;
+	public static readonly BACKTICK = 5;
+	public static readonly NL = 6;
 	public static readonly RULE_markdown = 0;
 	public static readonly RULE_block = 1;
-	public static readonly RULE_header = 2;
-	public static readonly RULE_headerFlag = 3;
-	public static readonly RULE_unorderedList = 4;
-	public static readonly RULE_orderedList = 5;
-	public static readonly RULE_textLine = 6;
-	public static readonly RULE_inlineText = 7;
-	public static readonly RULE_blankLine = 8;
+	public static readonly RULE_inlineHeader = 2;
+	public static readonly RULE_header = 3;
+	public static readonly RULE_inlineText = 4;
+	public static readonly RULE_textContent = 5;
+	public static readonly RULE_blockCode = 6;
+	public static readonly RULE_text = 7;
+	public static readonly RULE_inlineCode = 8;
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"markdown", "block", "header", "headerFlag", "unorderedList", "orderedList", 
-		"textLine", "inlineText", "blankLine",
+		"markdown", "block", "inlineHeader", "header", "inlineText", "textContent", 
+		"blockCode", "text", "inlineCode",
 	];
 
 	private static readonly _LITERAL_NAMES: Array<string | undefined> = [
-		undefined, undefined, undefined, undefined, undefined, undefined, "'#'", 
-		undefined, "'*'", undefined, "'.'", undefined, "'_'", "'`'", "'\\'", "'**'", 
-		"'__'", "'```'",
+		undefined, undefined, undefined, undefined, undefined, "'`'",
 	];
 	private static readonly _SYMBOLIC_NAMES: Array<string | undefined> = [
-		undefined, "BOLD_TEXT", "ITALIC_TEXT", "INLINE_CODE", "CODE_BLOCK", "TEXT", 
-		"HASH", "HASH_WS", "STAR", "DIGITS", "DOT", "WS", "UNDERSCORE", "BACKTICK", 
-		"ASTERISK", "DOUBLE_ASTERISK", "DOUBLE_UNDERSCORE", "TRIPLE_BACKTICK", 
+		undefined, "HEADER", "CHAR", "INLINE_CODE", "BLOCK_CODE", "BACKTICK", 
 		"NL",
 	];
 	public static readonly VOCABULARY: Vocabulary = new VocabularyImpl(MarkdownParser._LITERAL_NAMES, MarkdownParser._SYMBOLIC_NAMES, []);
@@ -106,34 +90,21 @@ export class MarkdownParser extends Parser {
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 22;
+			this.state = 21;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MarkdownParser.BOLD_TEXT) | (1 << MarkdownParser.ITALIC_TEXT) | (1 << MarkdownParser.INLINE_CODE) | (1 << MarkdownParser.TEXT) | (1 << MarkdownParser.HASH_WS) | (1 << MarkdownParser.STAR) | (1 << MarkdownParser.DIGITS) | (1 << MarkdownParser.NL))) !== 0)) {
+			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MarkdownParser.HEADER) | (1 << MarkdownParser.CHAR) | (1 << MarkdownParser.INLINE_CODE) | (1 << MarkdownParser.BLOCK_CODE) | (1 << MarkdownParser.NL))) !== 0)) {
 				{
-				this.state = 20;
-				this._errHandler.sync(this);
-				switch ( this.interpreter.adaptivePredict(this._input, 0, this._ctx) ) {
-				case 1:
-					{
-					this.state = 18;
-					this.block();
-					}
-					break;
-
-				case 2:
-					{
-					this.state = 19;
-					this.blankLine();
-					}
-					break;
+				{
+				this.state = 18;
+				this.block();
 				}
 				}
-				this.state = 24;
+				this.state = 23;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 25;
+			this.state = 24;
 			this.match(MarkdownParser.EOF);
 			}
 		}
@@ -156,39 +127,36 @@ export class MarkdownParser extends Parser {
 		let _localctx: BlockContext = new BlockContext(this._ctx, this.state);
 		this.enterRule(_localctx, 2, MarkdownParser.RULE_block);
 		try {
-			this.state = 31;
+			this.state = 30;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
-			case MarkdownParser.HASH_WS:
+			case MarkdownParser.HEADER:
 				this.enterOuterAlt(_localctx, 1);
 				{
-				this.state = 27;
-				this.header();
+				this.state = 26;
+				this.inlineHeader();
 				}
 				break;
-			case MarkdownParser.STAR:
+			case MarkdownParser.CHAR:
+			case MarkdownParser.INLINE_CODE:
 				this.enterOuterAlt(_localctx, 2);
 				{
-				this.state = 28;
-				this.unorderedList();
+				this.state = 27;
+				this.inlineText();
 				}
 				break;
-			case MarkdownParser.DIGITS:
+			case MarkdownParser.BLOCK_CODE:
 				this.enterOuterAlt(_localctx, 3);
 				{
-				this.state = 29;
-				this.orderedList();
+				this.state = 28;
+				this.blockCode();
 				}
 				break;
-			case MarkdownParser.BOLD_TEXT:
-			case MarkdownParser.ITALIC_TEXT:
-			case MarkdownParser.INLINE_CODE:
-			case MarkdownParser.TEXT:
 			case MarkdownParser.NL:
 				this.enterOuterAlt(_localctx, 4);
 				{
-				this.state = 30;
-				this.textLine();
+				this.state = 29;
+				this.match(MarkdownParser.NL);
 				}
 				break;
 			default:
@@ -210,152 +178,43 @@ export class MarkdownParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
+	public inlineHeader(): InlineHeaderContext {
+		let _localctx: InlineHeaderContext = new InlineHeaderContext(this._ctx, this.state);
+		this.enterRule(_localctx, 4, MarkdownParser.RULE_inlineHeader);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 32;
+			this.header();
+			this.state = 33;
+			this.textContent();
+			this.state = 34;
+			this.match(MarkdownParser.NL);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
 	public header(): HeaderContext {
 		let _localctx: HeaderContext = new HeaderContext(this._ctx, this.state);
-		this.enterRule(_localctx, 4, MarkdownParser.RULE_header);
+		this.enterRule(_localctx, 6, MarkdownParser.RULE_header);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 33;
-			this.headerFlag();
-			this.state = 34;
-			this.inlineText();
-			this.state = 35;
-			this.match(MarkdownParser.NL);
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public headerFlag(): HeaderFlagContext {
-		let _localctx: HeaderFlagContext = new HeaderFlagContext(this._ctx, this.state);
-		this.enterRule(_localctx, 6, MarkdownParser.RULE_headerFlag);
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 37;
-			this.match(MarkdownParser.HASH_WS);
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public unorderedList(): UnorderedListContext {
-		let _localctx: UnorderedListContext = new UnorderedListContext(this._ctx, this.state);
-		this.enterRule(_localctx, 8, MarkdownParser.RULE_unorderedList);
-		let _la: number;
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 39;
-			this.match(MarkdownParser.STAR);
-			this.state = 41;
-			this._errHandler.sync(this);
-			_la = this._input.LA(1);
-			if (_la === MarkdownParser.WS) {
-				{
-				this.state = 40;
-				this.match(MarkdownParser.WS);
-				}
-			}
-
-			this.state = 43;
-			this.inlineText();
-			this.state = 44;
-			this.match(MarkdownParser.NL);
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public orderedList(): OrderedListContext {
-		let _localctx: OrderedListContext = new OrderedListContext(this._ctx, this.state);
-		this.enterRule(_localctx, 10, MarkdownParser.RULE_orderedList);
-		let _la: number;
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 46;
-			this.match(MarkdownParser.DIGITS);
-			this.state = 47;
-			this.match(MarkdownParser.DOT);
-			this.state = 49;
-			this._errHandler.sync(this);
-			_la = this._input.LA(1);
-			if (_la === MarkdownParser.WS) {
-				{
-				this.state = 48;
-				this.match(MarkdownParser.WS);
-				}
-			}
-
-			this.state = 51;
-			this.inlineText();
-			this.state = 52;
-			this.match(MarkdownParser.NL);
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				_localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return _localctx;
-	}
-	// @RuleVersion(0)
-	public textLine(): TextLineContext {
-		let _localctx: TextLineContext = new TextLineContext(this._ctx, this.state);
-		this.enterRule(_localctx, 12, MarkdownParser.RULE_textLine);
-		try {
-			this.enterOuterAlt(_localctx, 1);
-			{
-			this.state = 54;
-			this.inlineText();
-			this.state = 55;
-			this.match(MarkdownParser.NL);
+			this.state = 36;
+			this.match(MarkdownParser.HEADER);
 			}
 		}
 		catch (re) {
@@ -375,35 +234,14 @@ export class MarkdownParser extends Parser {
 	// @RuleVersion(0)
 	public inlineText(): InlineTextContext {
 		let _localctx: InlineTextContext = new InlineTextContext(this._ctx, this.state);
-		this.enterRule(_localctx, 14, MarkdownParser.RULE_inlineText);
-		let _la: number;
+		this.enterRule(_localctx, 8, MarkdownParser.RULE_inlineText);
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 60;
-			this._errHandler.sync(this);
-			_la = this._input.LA(1);
-			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MarkdownParser.BOLD_TEXT) | (1 << MarkdownParser.ITALIC_TEXT) | (1 << MarkdownParser.INLINE_CODE) | (1 << MarkdownParser.TEXT))) !== 0)) {
-				{
-				{
-				this.state = 57;
-				_la = this._input.LA(1);
-				if (!((((_la) & ~0x1F) === 0 && ((1 << _la) & ((1 << MarkdownParser.BOLD_TEXT) | (1 << MarkdownParser.ITALIC_TEXT) | (1 << MarkdownParser.INLINE_CODE) | (1 << MarkdownParser.TEXT))) !== 0))) {
-				this._errHandler.recoverInline(this);
-				} else {
-					if (this._input.LA(1) === Token.EOF) {
-						this.matchedEOF = true;
-					}
-
-					this._errHandler.reportMatch(this);
-					this.consume();
-				}
-				}
-				}
-				this.state = 62;
-				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-			}
+			this.state = 38;
+			this.textContent();
+			this.state = 39;
+			this.match(MarkdownParser.NL);
 			}
 		}
 		catch (re) {
@@ -421,14 +259,137 @@ export class MarkdownParser extends Parser {
 		return _localctx;
 	}
 	// @RuleVersion(0)
-	public blankLine(): BlankLineContext {
-		let _localctx: BlankLineContext = new BlankLineContext(this._ctx, this.state);
-		this.enterRule(_localctx, 16, MarkdownParser.RULE_blankLine);
+	public textContent(): TextContentContext {
+		let _localctx: TextContentContext = new TextContentContext(this._ctx, this.state);
+		this.enterRule(_localctx, 10, MarkdownParser.RULE_textContent);
+		let _la: number;
 		try {
 			this.enterOuterAlt(_localctx, 1);
 			{
-			this.state = 63;
+			this.state = 43;
+			this._errHandler.sync(this);
+			_la = this._input.LA(1);
+			do {
+				{
+				this.state = 43;
+				this._errHandler.sync(this);
+				switch (this._input.LA(1)) {
+				case MarkdownParser.INLINE_CODE:
+					{
+					this.state = 41;
+					this.inlineCode();
+					}
+					break;
+				case MarkdownParser.CHAR:
+					{
+					this.state = 42;
+					this.text();
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
+				}
+				}
+				this.state = 45;
+				this._errHandler.sync(this);
+				_la = this._input.LA(1);
+			} while (_la === MarkdownParser.CHAR || _la === MarkdownParser.INLINE_CODE);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public blockCode(): BlockCodeContext {
+		let _localctx: BlockCodeContext = new BlockCodeContext(this._ctx, this.state);
+		this.enterRule(_localctx, 12, MarkdownParser.RULE_blockCode);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 47;
+			this.match(MarkdownParser.BLOCK_CODE);
+			this.state = 48;
 			this.match(MarkdownParser.NL);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public text(): TextContext {
+		let _localctx: TextContext = new TextContext(this._ctx, this.state);
+		this.enterRule(_localctx, 14, MarkdownParser.RULE_text);
+		try {
+			let _alt: number;
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 51;
+			this._errHandler.sync(this);
+			_alt = 1;
+			do {
+				switch (_alt) {
+				case 1:
+					{
+					{
+					this.state = 50;
+					this.match(MarkdownParser.CHAR);
+					}
+					}
+					break;
+				default:
+					throw new NoViableAltException(this);
+				}
+				this.state = 53;
+				this._errHandler.sync(this);
+				_alt = this.interpreter.adaptivePredict(this._input, 4, this._ctx);
+			} while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
+			}
+		}
+		catch (re) {
+			if (re instanceof RecognitionException) {
+				_localctx.exception = re;
+				this._errHandler.reportError(this, re);
+				this._errHandler.recover(this, re);
+			} else {
+				throw re;
+			}
+		}
+		finally {
+			this.exitRule();
+		}
+		return _localctx;
+	}
+	// @RuleVersion(0)
+	public inlineCode(): InlineCodeContext {
+		let _localctx: InlineCodeContext = new InlineCodeContext(this._ctx, this.state);
+		this.enterRule(_localctx, 16, MarkdownParser.RULE_inlineCode);
+		try {
+			this.enterOuterAlt(_localctx, 1);
+			{
+			this.state = 55;
+			this.match(MarkdownParser.INLINE_CODE);
 			}
 		}
 		catch (re) {
@@ -447,34 +408,30 @@ export class MarkdownParser extends Parser {
 	}
 
 	public static readonly _serializedATN: string =
-		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\x14D\x04\x02" +
-		"\t\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07" +
-		"\t\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x03\x02\x03\x02\x07\x02\x17\n\x02" +
-		"\f\x02\x0E\x02\x1A\v\x02\x03\x02\x03\x02\x03\x03\x03\x03\x03\x03\x03\x03" +
-		"\x05\x03\"\n\x03\x03\x04\x03\x04\x03\x04\x03\x04\x03\x05\x03\x05\x03\x06" +
-		"\x03\x06\x05\x06,\n\x06\x03\x06\x03\x06\x03\x06\x03\x07\x03\x07\x03\x07" +
-		"\x05\x074\n\x07\x03\x07\x03\x07\x03\x07\x03\b\x03\b\x03\b\x03\t\x07\t" +
-		"=\n\t\f\t\x0E\t@\v\t\x03\n\x03\n\x03\n\x02\x02\x02\v\x02\x02\x04\x02\x06" +
-		"\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x02\x03\x04\x02\x03\x05" +
-		"\x07\x07\x02B\x02\x18\x03\x02\x02\x02\x04!\x03\x02\x02\x02\x06#\x03\x02" +
-		"\x02\x02\b\'\x03\x02\x02\x02\n)\x03\x02\x02\x02\f0\x03\x02\x02\x02\x0E" +
-		"8\x03\x02\x02\x02\x10>\x03\x02\x02\x02\x12A\x03\x02\x02\x02\x14\x17\x05" +
-		"\x04\x03\x02\x15\x17\x05\x12\n\x02\x16\x14\x03\x02\x02\x02\x16\x15\x03" +
-		"\x02\x02\x02\x17\x1A\x03\x02\x02\x02\x18\x16\x03\x02\x02\x02\x18\x19\x03" +
-		"\x02\x02\x02\x19\x1B\x03\x02\x02\x02\x1A\x18\x03\x02\x02\x02\x1B\x1C\x07" +
-		"\x02\x02\x03\x1C\x03\x03\x02\x02\x02\x1D\"\x05\x06\x04\x02\x1E\"\x05\n" +
-		"\x06\x02\x1F\"\x05\f\x07\x02 \"\x05\x0E\b\x02!\x1D\x03\x02\x02\x02!\x1E" +
-		"\x03\x02\x02\x02!\x1F\x03\x02\x02\x02! \x03\x02\x02\x02\"\x05\x03\x02" +
-		"\x02\x02#$\x05\b\x05\x02$%\x05\x10\t\x02%&\x07\x14\x02\x02&\x07\x03\x02" +
-		"\x02\x02\'(\x07\t\x02\x02(\t\x03\x02\x02\x02)+\x07\n\x02\x02*,\x07\r\x02" +
-		"\x02+*\x03\x02\x02\x02+,\x03\x02\x02\x02,-\x03\x02\x02\x02-.\x05\x10\t" +
-		"\x02./\x07\x14\x02\x02/\v\x03\x02\x02\x0201\x07\v\x02\x0213\x07\f\x02" +
-		"\x0224\x07\r\x02\x0232\x03\x02\x02\x0234\x03\x02\x02\x0245\x03\x02\x02" +
-		"\x0256\x05\x10\t\x0267\x07\x14\x02\x027\r\x03\x02\x02\x0289\x05\x10\t" +
-		"\x029:\x07\x14\x02\x02:\x0F\x03\x02\x02\x02;=\t\x02\x02\x02<;\x03\x02" +
-		"\x02\x02=@\x03\x02\x02\x02><\x03\x02\x02\x02>?\x03\x02\x02\x02?\x11\x03" +
-		"\x02\x02\x02@>\x03\x02\x02\x02AB\x07\x14\x02\x02B\x13\x03\x02\x02\x02" +
-		"\b\x16\x18!+3>";
+		"\x03\uC91D\uCABA\u058D\uAFBA\u4F53\u0607\uEA8B\uC241\x03\b<\x04\x02\t" +
+		"\x02\x04\x03\t\x03\x04\x04\t\x04\x04\x05\t\x05\x04\x06\t\x06\x04\x07\t" +
+		"\x07\x04\b\t\b\x04\t\t\t\x04\n\t\n\x03\x02\x07\x02\x16\n\x02\f\x02\x0E" +
+		"\x02\x19\v\x02\x03\x02\x03\x02\x03\x03\x03\x03\x03\x03\x03\x03\x05\x03" +
+		"!\n\x03\x03\x04\x03\x04\x03\x04\x03\x04\x03\x05\x03\x05\x03\x06\x03\x06" +
+		"\x03\x06\x03\x07\x03\x07\x06\x07.\n\x07\r\x07\x0E\x07/\x03\b\x03\b\x03" +
+		"\b\x03\t\x06\t6\n\t\r\t\x0E\t7\x03\n\x03\n\x03\n\x02\x02\x02\v\x02\x02" +
+		"\x04\x02\x06\x02\b\x02\n\x02\f\x02\x0E\x02\x10\x02\x12\x02\x02\x02\x02" +
+		"9\x02\x17\x03\x02\x02\x02\x04 \x03\x02\x02\x02\x06\"\x03\x02\x02\x02\b" +
+		"&\x03\x02\x02\x02\n(\x03\x02\x02\x02\f-\x03\x02\x02\x02\x0E1\x03\x02\x02" +
+		"\x02\x105\x03\x02\x02\x02\x129\x03\x02\x02\x02\x14\x16\x05\x04\x03\x02" +
+		"\x15\x14\x03\x02\x02\x02\x16\x19\x03\x02\x02\x02\x17\x15\x03\x02\x02\x02" +
+		"\x17\x18\x03\x02\x02\x02\x18\x1A\x03\x02\x02\x02\x19\x17\x03\x02\x02\x02" +
+		"\x1A\x1B\x07\x02\x02\x03\x1B\x03\x03\x02\x02\x02\x1C!\x05\x06\x04\x02" +
+		"\x1D!\x05\n\x06\x02\x1E!\x05\x0E\b\x02\x1F!\x07\b\x02\x02 \x1C\x03\x02" +
+		"\x02\x02 \x1D\x03\x02\x02\x02 \x1E\x03\x02\x02\x02 \x1F\x03\x02\x02\x02" +
+		"!\x05\x03\x02\x02\x02\"#\x05\b\x05\x02#$\x05\f\x07\x02$%\x07\b\x02\x02" +
+		"%\x07\x03\x02\x02\x02&\'\x07\x03\x02\x02\'\t\x03\x02\x02\x02()\x05\f\x07" +
+		"\x02)*\x07\b\x02\x02*\v\x03\x02\x02\x02+.\x05\x12\n\x02,.\x05\x10\t\x02" +
+		"-+\x03\x02\x02\x02-,\x03\x02\x02\x02./\x03\x02\x02\x02/-\x03\x02\x02\x02" +
+		"/0\x03\x02\x02\x020\r\x03\x02\x02\x0212\x07\x06\x02\x0223\x07\b\x02\x02" +
+		"3\x0F\x03\x02\x02\x0246\x07\x04\x02\x0254\x03\x02\x02\x0267\x03\x02\x02" +
+		"\x0275\x03\x02\x02\x0278\x03\x02\x02\x028\x11\x03\x02\x02\x029:\x07\x05" +
+		"\x02\x02:\x13\x03\x02\x02\x02\x07\x17 -/7";
 	public static __ATN: ATN;
 	public static get _ATN(): ATN {
 		if (!MarkdownParser.__ATN) {
@@ -495,15 +452,6 @@ export class MarkdownContext extends ParserRuleContext {
 			return this.getRuleContexts(BlockContext);
 		} else {
 			return this.getRuleContext(i, BlockContext);
-		}
-	}
-	public blankLine(): BlankLineContext[];
-	public blankLine(i: number): BlankLineContext;
-	public blankLine(i?: number): BlankLineContext | BlankLineContext[] {
-		if (i === undefined) {
-			return this.getRuleContexts(BlankLineContext);
-		} else {
-			return this.getRuleContext(i, BlankLineContext);
 		}
 	}
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
@@ -535,18 +483,16 @@ export class MarkdownContext extends ParserRuleContext {
 
 
 export class BlockContext extends ParserRuleContext {
-	public header(): HeaderContext | undefined {
-		return this.tryGetRuleContext(0, HeaderContext);
+	public inlineHeader(): InlineHeaderContext | undefined {
+		return this.tryGetRuleContext(0, InlineHeaderContext);
 	}
-	public unorderedList(): UnorderedListContext | undefined {
-		return this.tryGetRuleContext(0, UnorderedListContext);
+	public inlineText(): InlineTextContext | undefined {
+		return this.tryGetRuleContext(0, InlineTextContext);
 	}
-	public orderedList(): OrderedListContext | undefined {
-		return this.tryGetRuleContext(0, OrderedListContext);
+	public blockCode(): BlockCodeContext | undefined {
+		return this.tryGetRuleContext(0, BlockCodeContext);
 	}
-	public textLine(): TextLineContext | undefined {
-		return this.tryGetRuleContext(0, TextLineContext);
-	}
+	public NL(): TerminalNode | undefined { return this.tryGetToken(MarkdownParser.NL, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -575,14 +521,44 @@ export class BlockContext extends ParserRuleContext {
 }
 
 
-export class HeaderContext extends ParserRuleContext {
-	public headerFlag(): HeaderFlagContext {
-		return this.getRuleContext(0, HeaderFlagContext);
+export class InlineHeaderContext extends ParserRuleContext {
+	public header(): HeaderContext {
+		return this.getRuleContext(0, HeaderContext);
 	}
-	public inlineText(): InlineTextContext {
-		return this.getRuleContext(0, InlineTextContext);
+	public textContent(): TextContentContext {
+		return this.getRuleContext(0, TextContentContext);
 	}
 	public NL(): TerminalNode { return this.getToken(MarkdownParser.NL, 0); }
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return MarkdownParser.RULE_inlineHeader; }
+	// @Override
+	public enterRule(listener: MarkdownListener): void {
+		if (listener.enterInlineHeader) {
+			listener.enterInlineHeader(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: MarkdownListener): void {
+		if (listener.exitInlineHeader) {
+			listener.exitInlineHeader(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
+		if (visitor.visitInlineHeader) {
+			return visitor.visitInlineHeader(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class HeaderContext extends ParserRuleContext {
+	public HEADER(): TerminalNode { return this.getToken(MarkdownParser.HEADER, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -611,177 +587,11 @@ export class HeaderContext extends ParserRuleContext {
 }
 
 
-export class HeaderFlagContext extends ParserRuleContext {
-	public HASH_WS(): TerminalNode { return this.getToken(MarkdownParser.HASH_WS, 0); }
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
-	}
-	// @Override
-	public get ruleIndex(): number { return MarkdownParser.RULE_headerFlag; }
-	// @Override
-	public enterRule(listener: MarkdownListener): void {
-		if (listener.enterHeaderFlag) {
-			listener.enterHeaderFlag(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: MarkdownListener): void {
-		if (listener.exitHeaderFlag) {
-			listener.exitHeaderFlag(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
-		if (visitor.visitHeaderFlag) {
-			return visitor.visitHeaderFlag(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-
-
-export class UnorderedListContext extends ParserRuleContext {
-	public STAR(): TerminalNode { return this.getToken(MarkdownParser.STAR, 0); }
-	public inlineText(): InlineTextContext {
-		return this.getRuleContext(0, InlineTextContext);
-	}
-	public NL(): TerminalNode { return this.getToken(MarkdownParser.NL, 0); }
-	public WS(): TerminalNode | undefined { return this.tryGetToken(MarkdownParser.WS, 0); }
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
-	}
-	// @Override
-	public get ruleIndex(): number { return MarkdownParser.RULE_unorderedList; }
-	// @Override
-	public enterRule(listener: MarkdownListener): void {
-		if (listener.enterUnorderedList) {
-			listener.enterUnorderedList(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: MarkdownListener): void {
-		if (listener.exitUnorderedList) {
-			listener.exitUnorderedList(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
-		if (visitor.visitUnorderedList) {
-			return visitor.visitUnorderedList(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-
-
-export class OrderedListContext extends ParserRuleContext {
-	public DIGITS(): TerminalNode { return this.getToken(MarkdownParser.DIGITS, 0); }
-	public DOT(): TerminalNode { return this.getToken(MarkdownParser.DOT, 0); }
-	public inlineText(): InlineTextContext {
-		return this.getRuleContext(0, InlineTextContext);
-	}
-	public NL(): TerminalNode { return this.getToken(MarkdownParser.NL, 0); }
-	public WS(): TerminalNode | undefined { return this.tryGetToken(MarkdownParser.WS, 0); }
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
-	}
-	// @Override
-	public get ruleIndex(): number { return MarkdownParser.RULE_orderedList; }
-	// @Override
-	public enterRule(listener: MarkdownListener): void {
-		if (listener.enterOrderedList) {
-			listener.enterOrderedList(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: MarkdownListener): void {
-		if (listener.exitOrderedList) {
-			listener.exitOrderedList(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
-		if (visitor.visitOrderedList) {
-			return visitor.visitOrderedList(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-
-
-export class TextLineContext extends ParserRuleContext {
-	public inlineText(): InlineTextContext {
-		return this.getRuleContext(0, InlineTextContext);
-	}
-	public NL(): TerminalNode { return this.getToken(MarkdownParser.NL, 0); }
-	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
-		super(parent, invokingState);
-	}
-	// @Override
-	public get ruleIndex(): number { return MarkdownParser.RULE_textLine; }
-	// @Override
-	public enterRule(listener: MarkdownListener): void {
-		if (listener.enterTextLine) {
-			listener.enterTextLine(this);
-		}
-	}
-	// @Override
-	public exitRule(listener: MarkdownListener): void {
-		if (listener.exitTextLine) {
-			listener.exitTextLine(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
-		if (visitor.visitTextLine) {
-			return visitor.visitTextLine(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-
-
 export class InlineTextContext extends ParserRuleContext {
-	public BOLD_TEXT(): TerminalNode[];
-	public BOLD_TEXT(i: number): TerminalNode;
-	public BOLD_TEXT(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(MarkdownParser.BOLD_TEXT);
-		} else {
-			return this.getToken(MarkdownParser.BOLD_TEXT, i);
-		}
+	public textContent(): TextContentContext {
+		return this.getRuleContext(0, TextContentContext);
 	}
-	public ITALIC_TEXT(): TerminalNode[];
-	public ITALIC_TEXT(i: number): TerminalNode;
-	public ITALIC_TEXT(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(MarkdownParser.ITALIC_TEXT);
-		} else {
-			return this.getToken(MarkdownParser.ITALIC_TEXT, i);
-		}
-	}
-	public INLINE_CODE(): TerminalNode[];
-	public INLINE_CODE(i: number): TerminalNode;
-	public INLINE_CODE(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(MarkdownParser.INLINE_CODE);
-		} else {
-			return this.getToken(MarkdownParser.INLINE_CODE, i);
-		}
-	}
-	public TEXT(): TerminalNode[];
-	public TEXT(i: number): TerminalNode;
-	public TEXT(i?: number): TerminalNode | TerminalNode[] {
-		if (i === undefined) {
-			return this.getTokens(MarkdownParser.TEXT);
-		} else {
-			return this.getToken(MarkdownParser.TEXT, i);
-		}
-	}
+	public NL(): TerminalNode { return this.getToken(MarkdownParser.NL, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
@@ -810,29 +620,145 @@ export class InlineTextContext extends ParserRuleContext {
 }
 
 
-export class BlankLineContext extends ParserRuleContext {
+export class TextContentContext extends ParserRuleContext {
+	public inlineCode(): InlineCodeContext[];
+	public inlineCode(i: number): InlineCodeContext;
+	public inlineCode(i?: number): InlineCodeContext | InlineCodeContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(InlineCodeContext);
+		} else {
+			return this.getRuleContext(i, InlineCodeContext);
+		}
+	}
+	public text(): TextContext[];
+	public text(i: number): TextContext;
+	public text(i?: number): TextContext | TextContext[] {
+		if (i === undefined) {
+			return this.getRuleContexts(TextContext);
+		} else {
+			return this.getRuleContext(i, TextContext);
+		}
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return MarkdownParser.RULE_textContent; }
+	// @Override
+	public enterRule(listener: MarkdownListener): void {
+		if (listener.enterTextContent) {
+			listener.enterTextContent(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: MarkdownListener): void {
+		if (listener.exitTextContent) {
+			listener.exitTextContent(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
+		if (visitor.visitTextContent) {
+			return visitor.visitTextContent(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class BlockCodeContext extends ParserRuleContext {
+	public BLOCK_CODE(): TerminalNode { return this.getToken(MarkdownParser.BLOCK_CODE, 0); }
 	public NL(): TerminalNode { return this.getToken(MarkdownParser.NL, 0); }
 	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
 		super(parent, invokingState);
 	}
 	// @Override
-	public get ruleIndex(): number { return MarkdownParser.RULE_blankLine; }
+	public get ruleIndex(): number { return MarkdownParser.RULE_blockCode; }
 	// @Override
 	public enterRule(listener: MarkdownListener): void {
-		if (listener.enterBlankLine) {
-			listener.enterBlankLine(this);
+		if (listener.enterBlockCode) {
+			listener.enterBlockCode(this);
 		}
 	}
 	// @Override
 	public exitRule(listener: MarkdownListener): void {
-		if (listener.exitBlankLine) {
-			listener.exitBlankLine(this);
+		if (listener.exitBlockCode) {
+			listener.exitBlockCode(this);
 		}
 	}
 	// @Override
 	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
-		if (visitor.visitBlankLine) {
-			return visitor.visitBlankLine(this);
+		if (visitor.visitBlockCode) {
+			return visitor.visitBlockCode(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class TextContext extends ParserRuleContext {
+	public CHAR(): TerminalNode[];
+	public CHAR(i: number): TerminalNode;
+	public CHAR(i?: number): TerminalNode | TerminalNode[] {
+		if (i === undefined) {
+			return this.getTokens(MarkdownParser.CHAR);
+		} else {
+			return this.getToken(MarkdownParser.CHAR, i);
+		}
+	}
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return MarkdownParser.RULE_text; }
+	// @Override
+	public enterRule(listener: MarkdownListener): void {
+		if (listener.enterText) {
+			listener.enterText(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: MarkdownListener): void {
+		if (listener.exitText) {
+			listener.exitText(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
+		if (visitor.visitText) {
+			return visitor.visitText(this);
+		} else {
+			return visitor.visitChildren(this);
+		}
+	}
+}
+
+
+export class InlineCodeContext extends ParserRuleContext {
+	public INLINE_CODE(): TerminalNode { return this.getToken(MarkdownParser.INLINE_CODE, 0); }
+	constructor(parent: ParserRuleContext | undefined, invokingState: number) {
+		super(parent, invokingState);
+	}
+	// @Override
+	public get ruleIndex(): number { return MarkdownParser.RULE_inlineCode; }
+	// @Override
+	public enterRule(listener: MarkdownListener): void {
+		if (listener.enterInlineCode) {
+			listener.enterInlineCode(this);
+		}
+	}
+	// @Override
+	public exitRule(listener: MarkdownListener): void {
+		if (listener.exitInlineCode) {
+			listener.exitInlineCode(this);
+		}
+	}
+	// @Override
+	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
+		if (visitor.visitInlineCode) {
+			return visitor.visitInlineCode(this);
 		} else {
 			return visitor.visitChildren(this);
 		}
