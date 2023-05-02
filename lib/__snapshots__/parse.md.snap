@@ -1,147 +1,199 @@
-{
+MarkdownNode {
+  "attr": {},
   "body": [
-    {
+    BlockNode {
+      "attr": {},
       "body": [
-        {
+        InlineHeaderNode {
           "attr": {
             "level": 1,
           },
           "body": [
-            {
+            TextNode {
+              "attr": {},
+              "body": undefined,
               "content": "Hello ",
               "tag": "text",
             },
-            {
+            InlineCodeNode {
+              "attr": {},
+              "body": undefined,
               "content": "`antlr-md`",
               "tag": "inline-code",
             },
-            {
+            TextNode {
+              "attr": {},
+              "body": undefined,
               "content": " Demo",
               "tag": "text",
             },
           ],
+          "content": undefined,
           "tag": "inline-header",
         },
       ],
+      "content": undefined,
       "tag": "block",
     },
-    {
+    BlockNode {
+      "attr": {},
       "body": [
         undefined,
       ],
+      "content": undefined,
       "tag": "block",
     },
-    {
+    BlockNode {
+      "attr": {},
       "body": [
-        {
+        InlineHeaderNode {
           "attr": {
             "level": 2,
           },
           "body": [
-            {
+            TextNode {
+              "attr": {},
+              "body": undefined,
               "content": "ANTLR v4",
               "tag": "text",
             },
           ],
+          "content": undefined,
           "tag": "inline-header",
         },
       ],
+      "content": undefined,
       "tag": "block",
     },
-    {
+    BlockNode {
+      "attr": {},
       "body": [
         undefined,
       ],
+      "content": undefined,
       "tag": "block",
     },
-    {
+    BlockNode {
+      "attr": {},
       "body": [
-        {
+        InlineTextNode {
+          "attr": {},
           "body": [
-            {
+            TextNode {
+              "attr": {},
+              "body": undefined,
               "content": "一款功能强大的框架。",
               "tag": "text",
             },
           ],
+          "content": undefined,
           "tag": "inline-text",
         },
       ],
+      "content": undefined,
       "tag": "block",
     },
-    {
+    BlockNode {
+      "attr": {},
       "body": [
-        {
+        InlineTextNode {
+          "attr": {},
           "body": [
-            {
+            TextNode {
+              "attr": {},
+              "body": undefined,
               "content": "一种新的称为 ",
               "tag": "text",
             },
-            {
+            InlineCodeNode {
+              "attr": {},
+              "body": undefined,
               "content": "`Adaptive LL(*)`",
               "tag": "inline-code",
             },
-            {
+            TextNode {
+              "attr": {},
+              "body": undefined,
               "content": "或 ",
               "tag": "text",
             },
-            {
+            InlineCodeNode {
+              "attr": {},
+              "body": undefined,
               "content": "`ALL(*)`",
               "tag": "inline-code",
             },
-            {
+            TextNode {
+              "attr": {},
+              "body": undefined,
               "content": "。",
               "tag": "text",
             },
           ],
+          "content": undefined,
           "tag": "inline-text",
         },
       ],
+      "content": undefined,
       "tag": "block",
     },
-    {
+    BlockNode {
+      "attr": {},
       "body": [
         undefined,
       ],
+      "content": undefined,
       "tag": "block",
     },
-    {
+    BlockNode {
+      "attr": {},
       "body": [
-        {
+        InlineHeaderNode {
           "attr": {
             "level": 2,
           },
           "body": [
-            {
+            TextNode {
+              "attr": {},
+              "body": undefined,
               "content": "代码演示",
               "tag": "text",
             },
           ],
+          "content": undefined,
           "tag": "inline-header",
         },
       ],
+      "content": undefined,
       "tag": "block",
     },
-    {
+    BlockNode {
+      "attr": {},
       "body": [
         undefined,
       ],
+      "content": undefined,
       "tag": "block",
     },
-    {
+    BlockNode {
+      "attr": {},
       "body": [
-        {
+        BlockCodeNode {
           "attr": {
             "lang": "js",
           },
+          "body": undefined,
           "content": "let a = 123;
 console.log(a);
 ",
           "tag": "block-code",
         },
       ],
+      "content": undefined,
       "tag": "block",
     },
     undefined,
   ],
+  "content": undefined,
   "tag": "markdown",
 }

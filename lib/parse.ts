@@ -14,8 +14,9 @@ import {
 } from "./g4/MarkdownParser";
 import { MarkdownVisitor } from "./g4/MarkdownVisitor";
 import { ParseTreeVisitor, ParseTree } from "antlr4";
+import { BlockCodeNode, BlockNode, InlineCodeNode, InlineHeaderNode, InlineTextNode, MarkdownNode, TextNode } from "./ast";
 
-export function parse(input: string): MarkdownContext {
+export function parse(input: string): MarkdownNode {
   const inputStream = CharStreams.fromString(input);
   const lexer = new MarkdownLexer(inputStream);
   const tokens = new CommonTokenStream(lexer);
@@ -34,59 +35,36 @@ class HelperVisitor
 {
   visitMarkdown(ctx: MarkdownContext) {
     // console.log("visitMarkdown");
-    return {
-      tag: "markdown",
-      body: this.visitChildren(ctx),
-    };
+    return new MarkdownNode({}, this.visitChildren(ctx));
   }
 
   visitBlock(ctx: BlockContext) {
     // console.log("visitBlock", ctx);
-    return {
-      tag: "block",
-      body: this.visitChildren(ctx),
-    };
+    return new BlockNode(this.visitChildren(ctx));
   }
 
   visitInlineHeader(ctx: InlineHeaderContext) {
     // console.log("visitHeader", ctx);
-    return {
-      tag: "inline-header",
-      attr: {
+    return new InlineHeaderNode(
+      {
         level: ctx.header().text.length - 1,
       },
-      body: this.visitChildren(ctx.textContent()),
-    };
+      this.visitChildren(ctx.textContent())
+    );
   }
 
   visitInlineText(ctx: InlineTextContext){
-    return {
-      tag: "inline-text",
-      body: this.visitChildren(ctx.textContent()),
-    };
+    return new InlineTextNode(this.visitChildren(ctx.textContent()));
   };
-
-  visitTextContent(ctx: TextContentContext) {
-    return {
-      tag: "text-content",
-      body: this.visitChildren(ctx),
-    };
-  }
 
   visitText(ctx: TextContext) {
     // console.log("visitText", ctx);
-    return {
-      tag: "text",
-      content: ctx.text,
-    };
+    return new TextNode(ctx.text);
   }
 
   visitInlineCode(ctx: InlineCodeContext) {
     // console.log("visitInlineCode", ctx);
-    return {
-      tag: "inline-code",
-      content: ctx.text,
-    };
+    return new InlineCodeNode(ctx.text);
   }
 
   visitBlockCode(ctx: BlockCodeContext) {
@@ -95,12 +73,9 @@ class HelperVisitor
     const firstLnIndex = text.indexOf("\n");
     const lang = text.substring(3, firstLnIndex);
     const content = text.substring(firstLnIndex + 1, text.length - 3);
-    return {
-      tag: "block-code",
-      attr: {
-        lang,
-      },
-      content,
-    };
+    return new BlockCodeNode({
+      lang,
+    },
+    content);
   }
 }
