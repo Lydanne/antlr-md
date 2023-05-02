@@ -1,6 +1,6 @@
 {
   "name": "antlr-md",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "./dist/antlr-md.cjs",
   "module": "./dist/antlr-md.mjs",
   "exports": {
@@ -15,7 +15,8 @@
     "build": "tsc && vite build",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
-    "build-runtime": "antlr4ts -visitor -Dlanguage=TypeScript ./lib/g4/Markdown.g4"
+    "build-runtime": "antlr4ts -visitor -Dlanguage=TypeScript ./lib/g4/Markdown.g4",
+    "build-runtime2": "java -Xmx500M -cp \"./antlr-4.12.0-complete.jar:$CLASSPATH\" org.antlr.v4.Tool -visitor -Dlanguage=TypeScript ./lib/g4/Markdown.g4"
   },
   "devDependencies": {
     "@types/antlr4": "^4.11.2",
@@ -26,7 +27,6 @@
     "vitest": "^0.30.1"
   },
   "dependencies": {
-    "antlr4": "^4.12.0",
-    "antlr4ts": "0.5.0-alpha.4"
+    "antlr4": "^4.12.0"
   }
 }

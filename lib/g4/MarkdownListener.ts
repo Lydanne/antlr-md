@@ -1,7 +1,7 @@
-// Generated from ./lib/g4/Markdown.g4 by ANTLR 4.9.0-SNAPSHOT
+// Generated from ./lib/g4/Markdown.g4 by ANTLR 4.12.0
 
+import {ParseTreeListener} from "antlr4";
 
-import { ParseTreeListener } from "antlr4ts/tree/ParseTreeListener";
 
 import { MarkdownContext } from "./MarkdownParser";
 import { BlockContext } from "./MarkdownParser";
@@ -10,7 +10,7 @@ import { HeaderContext } from "./MarkdownParser";
 import { InlineTextContext } from "./MarkdownParser";
 import { TextContentContext } from "./MarkdownParser";
 import { BlockCodeContext } from "./MarkdownParser";
-import { TextContext } from "./MarkdownParser";
+import { StrContext } from "./MarkdownParser";
 import { InlineCodeContext } from "./MarkdownParser";
 
 
@@ -18,7 +18,7 @@ import { InlineCodeContext } from "./MarkdownParser";
  * This interface defines a complete listener for a parse tree produced by
  * `MarkdownParser`.
  */
-export interface MarkdownListener extends ParseTreeListener {
+export default class MarkdownListener extends ParseTreeListener {
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.markdown`.
 	 * @param ctx the parse tree
@@ -29,7 +29,6 @@ export interface MarkdownListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitMarkdown?: (ctx: MarkdownContext) => void;
-
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.block`.
 	 * @param ctx the parse tree
@@ -40,7 +39,6 @@ export interface MarkdownListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitBlock?: (ctx: BlockContext) => void;
-
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.inlineHeader`.
 	 * @param ctx the parse tree
@@ -51,7 +49,6 @@ export interface MarkdownListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitInlineHeader?: (ctx: InlineHeaderContext) => void;
-
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.header`.
 	 * @param ctx the parse tree
@@ -62,7 +59,6 @@ export interface MarkdownListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitHeader?: (ctx: HeaderContext) => void;
-
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.inlineText`.
 	 * @param ctx the parse tree
@@ -73,7 +69,6 @@ export interface MarkdownListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitInlineText?: (ctx: InlineTextContext) => void;
-
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.textContent`.
 	 * @param ctx the parse tree
@@ -84,7 +79,6 @@ export interface MarkdownListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitTextContent?: (ctx: TextContentContext) => void;
-
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.blockCode`.
 	 * @param ctx the parse tree
@@ -95,18 +89,16 @@ export interface MarkdownListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitBlockCode?: (ctx: BlockCodeContext) => void;
-
 	/**
-	 * Enter a parse tree produced by `MarkdownParser.text`.
+	 * Enter a parse tree produced by `MarkdownParser.str`.
 	 * @param ctx the parse tree
 	 */
-	enterText?: (ctx: TextContext) => void;
+	enterStr?: (ctx: StrContext) => void;
 	/**
-	 * Exit a parse tree produced by `MarkdownParser.text`.
+	 * Exit a parse tree produced by `MarkdownParser.str`.
 	 * @param ctx the parse tree
 	 */
-	exitText?: (ctx: TextContext) => void;
-
+	exitStr?: (ctx: StrContext) => void;
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.inlineCode`.
 	 * @param ctx the parse tree

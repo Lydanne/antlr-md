@@ -1,20 +1,16 @@
-import { MarkdownLexer } from "./g4/MarkdownLexer";
-import { CharStreams, CommonTokenStream } from "antlr4ts";
-import {
+import MarkdownLexer from "./g4/MarkdownLexer";
+import MarkdownParser, {
   BlockCodeContext,
   BlockContext,
-  HeaderContext,
   InlineCodeContext,
   InlineHeaderContext,
   InlineTextContext,
   MarkdownContext,
-  MarkdownParser,
-  TextContentContext,
-  TextContext,
+  StrContext,
 } from "./g4/MarkdownParser";
-import { MarkdownVisitor } from "./g4/MarkdownVisitor";
-import { ParseTreeVisitor, ParseTree } from "antlr4";
-import { BlockCodeNode, BlockNode, InlineCodeNode, InlineHeaderNode, InlineTextNode, MarkdownNode, TextNode } from "./ast";
+import MarkdownVisitor from "./g4/MarkdownVisitor";
+import { ParseTreeVisitor, ParseTree, CharStreams, CommonTokenStream } from "antlr4";
+import { BlockCodeNode, BlockNode, InlineCodeNode, InlineHeaderNode, InlineTextNode, MarkdownNode, StrNode } from "./ast";
 
 export function parse(input: string): MarkdownNode {
   const inputStream = CharStreams.fromString(input);
@@ -47,7 +43,7 @@ class HelperVisitor
     // console.log("visitHeader", ctx);
     return new InlineHeaderNode(
       {
-        level: ctx.header().text.length - 1,
+        level: ctx.header().getText().length - 1,
       },
       this.visitChildren(ctx.textContent())
     );
@@ -57,19 +53,19 @@ class HelperVisitor
     return new InlineTextNode(this.visitChildren(ctx.textContent()));
   };
 
-  visitText(ctx: TextContext) {
+  visitStr(ctx: StrContext) {
     // console.log("visitText", ctx);
-    return new TextNode(ctx.text);
+    return new StrNode(ctx.getText());
   }
 
   visitInlineCode(ctx: InlineCodeContext) {
     // console.log("visitInlineCode", ctx);
-    return new InlineCodeNode(ctx.text);
+    return new InlineCodeNode(ctx.getText());
   }
 
   visitBlockCode(ctx: BlockCodeContext) {
     // console.log("visitBlockCode", ctx);
-    const text = ctx.BLOCK_CODE().text;
+    const text = ctx.BLOCK_CODE().getText();
     const firstLnIndex = text.indexOf("\n");
     const lang = text.substring(3, firstLnIndex);
     const content = text.substring(firstLnIndex + 1, text.length - 3);

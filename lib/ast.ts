@@ -66,15 +66,15 @@ export class InlineTextNode extends Node<{}> {
   }
 }
 
-export class TextNode extends Node<{}> {
-  tag: string = "text";
+export class StrNode extends Node<{}> {
+  tag: string = "str";
 
   constructor(content: string) {
     super({}, content);
   }
 
   render() {
-    return `<span class="text">${this.content}</span>`;
+    return `<span class="str">${this.content}</span>`;
   }
 }
 

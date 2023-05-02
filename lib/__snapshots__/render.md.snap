@@ -1,11 +1,11 @@
-<div class="block"><h1 class="inline-header"><span class="inline-header-flag">#</span><span class="text">Hello </span><span class="inline-code"><span class="inline-code-flag">`</span>`antlr-md`<span class="inline-code-flag">`</span></span><span class="text"> Demo</span></h1></div>
+<div class="block"><h1 class="inline-header"><span class="inline-header-flag">#</span><span class="str">Hello </span><span class="inline-code"><span class="inline-code-flag">`</span>`antlr-md`<span class="inline-code-flag">`</span></span><span class="str"> Demo</span></h1></div>
 
-<div class="block"><h2 class="inline-header"><span class="inline-header-flag">##</span><span class="text">ANTLR v4</span></h2></div>
+<div class="block"><h2 class="inline-header"><span class="inline-header-flag">##</span><span class="str">ANTLR v4</span></h2></div>
 
-<div class="block"><span class="inline-text"><span class="text">一款功能强大的框架。</span></span></div>
-<div class="block"><span class="inline-text"><span class="text">一种新的称为 </span><span class="inline-code"><span class="inline-code-flag">`</span>`Adaptive LL(*)`<span class="inline-code-flag">`</span></span><span class="text">或 </span><span class="inline-code"><span class="inline-code-flag">`</span>`ALL(*)`<span class="inline-code-flag">`</span></span><span class="text">。</span></span></div>
+<div class="block"><span class="inline-text"><span class="str">一款功能强大的框架。</span></span></div>
+<div class="block"><span class="inline-text"><span class="str">一种新的称为 </span><span class="inline-code"><span class="inline-code-flag">`</span>`Adaptive LL(*)`<span class="inline-code-flag">`</span></span><span class="str">或 </span><span class="inline-code"><span class="inline-code-flag">`</span>`ALL(*)`<span class="inline-code-flag">`</span></span><span class="str">。</span></span></div>
 
-<div class="block"><h2 class="inline-header"><span class="inline-header-flag">##</span><span class="text">代码演示</span></h2></div>
+<div class="block"><h2 class="inline-header"><span class="inline-header-flag">##</span><span class="str">代码演示</span></h2></div>
 
 <div class="block"><pre class="block-code"><span class="block-code-flag">```</span><code class="language-js">let a = 123;
 console.log(a);

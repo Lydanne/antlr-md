@@ -10,11 +10,11 @@ header: HEADER;
 
 inlineText: textContent NL;
 
-textContent: (inlineCode | text)+;
+textContent: (inlineCode | str)+;
 
 blockCode: BLOCK_CODE NL;
 
-text: CHAR+;
+str: CHAR+;
 
 inlineCode: INLINE_CODE;
 

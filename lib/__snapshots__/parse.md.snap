@@ -9,11 +9,11 @@ MarkdownNode {
             "level": 1,
           },
           "body": [
-            TextNode {
+            StrNode {
               "attr": {},
               "body": undefined,
               "content": "Hello ",
-              "tag": "text",
+              "tag": "str",
             },
             InlineCodeNode {
               "attr": {},
@@ -21,11 +21,11 @@ MarkdownNode {
               "content": "`antlr-md`",
               "tag": "inline-code",
             },
-            TextNode {
+            StrNode {
               "attr": {},
               "body": undefined,
               "content": " Demo",
-              "tag": "text",
+              "tag": "str",
             },
           ],
           "content": undefined,
@@ -51,11 +51,11 @@ MarkdownNode {
             "level": 2,
           },
           "body": [
-            TextNode {
+            StrNode {
               "attr": {},
               "body": undefined,
               "content": "ANTLR v4",
-              "tag": "text",
+              "tag": "str",
             },
           ],
           "content": undefined,
@@ -79,11 +79,11 @@ MarkdownNode {
         InlineTextNode {
           "attr": {},
           "body": [
-            TextNode {
+            StrNode {
               "attr": {},
               "body": undefined,
               "content": "一款功能强大的框架。",
-              "tag": "text",
+              "tag": "str",
             },
           ],
           "content": undefined,
@@ -99,11 +99,11 @@ MarkdownNode {
         InlineTextNode {
           "attr": {},
           "body": [
-            TextNode {
+            StrNode {
               "attr": {},
               "body": undefined,
               "content": "一种新的称为 ",
-              "tag": "text",
+              "tag": "str",
             },
             InlineCodeNode {
               "attr": {},
@@ -111,11 +111,11 @@ MarkdownNode {
               "content": "`Adaptive LL(*)`",
               "tag": "inline-code",
             },
-            TextNode {
+            StrNode {
               "attr": {},
               "body": undefined,
               "content": "或 ",
-              "tag": "text",
+              "tag": "str",
             },
             InlineCodeNode {
               "attr": {},
@@ -123,11 +123,11 @@ MarkdownNode {
               "content": "`ALL(*)`",
               "tag": "inline-code",
             },
-            TextNode {
+            StrNode {
               "attr": {},
               "body": undefined,
               "content": "。",
-              "tag": "text",
+              "tag": "str",
             },
           ],
           "content": undefined,
@@ -153,11 +153,11 @@ MarkdownNode {
             "level": 2,
           },
           "body": [
-            TextNode {
+            StrNode {
               "attr": {},
               "body": undefined,
               "content": "代码演示",
-              "tag": "text",
+              "tag": "str",
             },
           ],
           "content": undefined,
