@@ -1,10 +1,9 @@
 export abstract class Node<Attr> {
   tag!: string;
-  constructor(
-    protected attr?: Attr,
-    protected content?: string,
-    protected body?: Node<any>[]
-  ) {}
+  body?: Node<any>[];
+  constructor(public attr?: Attr, public content?: string, body?: Node<any>[]) {
+    if (body) this.body = body.filter((n) => n);
+  }
 
   abstract render(): string;
 }
@@ -18,7 +17,10 @@ export class MarkdownNode extends Node<{}> {
 
   render() {
     if (!this.body) return "";
-    return this.body.filter(node => node?.render).map((node) => node.render()).join("\n");
+    return this.body
+      .filter((node) => node?.render)
+      .map((node) => node.render())
+      .join("\n");
   }
 }
 
@@ -31,11 +33,9 @@ export class BlockNode extends Node<{}> {
 
   render() {
     if (!this.body) return "";
-    return this.body.filter((node) => node?.render)
-      .map((node) => {
-        return `<div class="block">${node.render()}</div>`;
-      })
-      .join("\n");
+    return `<div class="block">${this.body
+      .map((node) => node.render())
+      .join("\n")}</div>`;
   }
 }
 
@@ -48,21 +48,27 @@ export class InlineHeaderNode extends Node<{ level: number }> {
 
   render() {
     if (!this.body) return "";
-    return `<h${this.attr?.level} class="inline-header"><span class="inline-header-flag">${'#'.repeat(this.attr?.level ?? 0)}</span>${this.body
-      .map((node) => node.render())
-      .join("")}</h${this.attr?.level}>`;
+    return `<h${
+      this.attr?.level
+    } class="inline-header"><span class="inline-header-flag">${"#".repeat(
+      this.attr?.level ?? 0
+    )}&#32;</span>${this.body.map((node) => node.render()).join("")}</h${
+      this.attr?.level
+    }>`;
   }
 }
 
 export class InlineTextNode extends Node<{}> {
   tag: string = "inline-text";
 
-  constructor( body: Node<any>[]) {
+  constructor(body: Node<any>[]) {
     super({}, undefined, body);
   }
 
   render() {
-    return `<span class="inline-text">${this.body?.map(node => node.render()).join("")}</span>`;
+    return `<span class="inline-text">${this.body
+      ?.map((node) => node.render())
+      .join("")}</span>`;
   }
 }
 
