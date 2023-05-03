@@ -1,18 +1,18 @@
 grammar Markdown;
 
-markdown: block* EOF;
+markdown: block* EOF?;
 
 block: inlineHeader | inlineText | blockCode | NL;
 
-inlineHeader: header textContent NL;
+inlineHeader: header textContent NL?;
 
 header: HEADER;
 
-inlineText: textContent NL;
+inlineText: textContent NL?;
 
 textContent: (inlineCode | str)+;
 
-blockCode: BLOCK_CODE NL;
+blockCode: BLOCK_CODE NL?;
 
 str: CHAR+;
 

@@ -81,8 +81,16 @@ export default class MarkdownParser extends Parser {
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 24;
-			this.match(MarkdownParser.EOF);
+			this.state = 25;
+			this._errHandler.sync(this);
+			switch ( this._interp.adaptivePredict(this._input, 1, this._ctx) ) {
+			case 1:
+				{
+				this.state = 24;
+				this.match(MarkdownParser.EOF);
+				}
+				break;
+			}
 			}
 		}
 		catch (re) {
@@ -104,13 +112,13 @@ export default class MarkdownParser extends Parser {
 		let localctx: BlockContext = new BlockContext(this, this._ctx, this.state);
 		this.enterRule(localctx, 2, MarkdownParser.RULE_block);
 		try {
-			this.state = 30;
+			this.state = 31;
 			this._errHandler.sync(this);
 			switch (this._input.LA(1)) {
 			case 1:
 				this.enterOuterAlt(localctx, 1);
 				{
-				this.state = 26;
+				this.state = 27;
 				this.inlineHeader();
 				}
 				break;
@@ -118,21 +126,21 @@ export default class MarkdownParser extends Parser {
 			case 3:
 				this.enterOuterAlt(localctx, 2);
 				{
-				this.state = 27;
+				this.state = 28;
 				this.inlineText();
 				}
 				break;
 			case 4:
 				this.enterOuterAlt(localctx, 3);
 				{
-				this.state = 28;
+				this.state = 29;
 				this.blockCode();
 				}
 				break;
 			case 5:
 				this.enterOuterAlt(localctx, 4);
 				{
-				this.state = 29;
+				this.state = 30;
 				this.match(MarkdownParser.NL);
 				}
 				break;
@@ -161,12 +169,20 @@ export default class MarkdownParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 32;
-			this.header();
 			this.state = 33;
-			this.textContent();
+			this.header();
 			this.state = 34;
-			this.match(MarkdownParser.NL);
+			this.textContent();
+			this.state = 36;
+			this._errHandler.sync(this);
+			switch ( this._interp.adaptivePredict(this._input, 3, this._ctx) ) {
+			case 1:
+				{
+				this.state = 35;
+				this.match(MarkdownParser.NL);
+				}
+				break;
+			}
 			}
 		}
 		catch (re) {
@@ -190,7 +206,7 @@ export default class MarkdownParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 36;
+			this.state = 38;
 			this.match(MarkdownParser.HEADER);
 			}
 		}
@@ -215,10 +231,18 @@ export default class MarkdownParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 38;
+			this.state = 40;
 			this.textContent();
-			this.state = 39;
-			this.match(MarkdownParser.NL);
+			this.state = 42;
+			this._errHandler.sync(this);
+			switch ( this._interp.adaptivePredict(this._input, 4, this._ctx) ) {
+			case 1:
+				{
+				this.state = 41;
+				this.match(MarkdownParser.NL);
+				}
+				break;
+			}
 			}
 		}
 		catch (re) {
@@ -239,38 +263,44 @@ export default class MarkdownParser extends Parser {
 	public textContent(): TextContentContext {
 		let localctx: TextContentContext = new TextContentContext(this, this._ctx, this.state);
 		this.enterRule(localctx, 10, MarkdownParser.RULE_textContent);
-		let _la: number;
 		try {
+			let _alt: number;
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 43;
+			this.state = 46;
 			this._errHandler.sync(this);
-			_la = this._input.LA(1);
+			_alt = 1;
 			do {
-				{
-				this.state = 43;
-				this._errHandler.sync(this);
-				switch (this._input.LA(1)) {
-				case 3:
+				switch (_alt) {
+				case 1:
 					{
-					this.state = 41;
-					this.inlineCode();
+					this.state = 46;
+					this._errHandler.sync(this);
+					switch (this._input.LA(1)) {
+					case 3:
+						{
+						this.state = 44;
+						this.inlineCode();
+						}
+						break;
+					case 2:
+						{
+						this.state = 45;
+						this.str();
+						}
+						break;
+					default:
+						throw new NoViableAltException(this);
 					}
-					break;
-				case 2:
-					{
-					this.state = 42;
-					this.str();
 					}
 					break;
 				default:
 					throw new NoViableAltException(this);
 				}
-				}
-				this.state = 45;
+				this.state = 48;
 				this._errHandler.sync(this);
-				_la = this._input.LA(1);
-			} while (_la===2 || _la===3);
+				_alt = this._interp.adaptivePredict(this._input, 6, this._ctx);
+			} while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
 			}
 		}
 		catch (re) {
@@ -294,10 +324,18 @@ export default class MarkdownParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 47;
+			this.state = 50;
 			this.match(MarkdownParser.BLOCK_CODE);
-			this.state = 48;
-			this.match(MarkdownParser.NL);
+			this.state = 52;
+			this._errHandler.sync(this);
+			switch ( this._interp.adaptivePredict(this._input, 7, this._ctx) ) {
+			case 1:
+				{
+				this.state = 51;
+				this.match(MarkdownParser.NL);
+				}
+				break;
+			}
 			}
 		}
 		catch (re) {
@@ -322,7 +360,7 @@ export default class MarkdownParser extends Parser {
 			let _alt: number;
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 51;
+			this.state = 55;
 			this._errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -330,7 +368,7 @@ export default class MarkdownParser extends Parser {
 				case 1:
 					{
 					{
-					this.state = 50;
+					this.state = 54;
 					this.match(MarkdownParser.CHAR);
 					}
 					}
@@ -338,9 +376,9 @@ export default class MarkdownParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				this.state = 53;
+				this.state = 57;
 				this._errHandler.sync(this);
-				_alt = this._interp.adaptivePredict(this._input, 4, this._ctx);
+				_alt = this._interp.adaptivePredict(this._input, 8, this._ctx);
 			} while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
 			}
 		}
@@ -365,7 +403,7 @@ export default class MarkdownParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 55;
+			this.state = 59;
 			this.match(MarkdownParser.INLINE_CODE);
 			}
 		}
@@ -384,22 +422,24 @@ export default class MarkdownParser extends Parser {
 		return localctx;
 	}
 
-	public static readonly _serializedATN: number[] = [4,1,5,58,2,0,7,0,2,1,
+	public static readonly _serializedATN: number[] = [4,1,5,62,2,0,7,0,2,1,
 	7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,7,7,2,8,7,8,1,0,5,0,20,
-	8,0,10,0,12,0,23,9,0,1,0,1,0,1,1,1,1,1,1,1,1,3,1,31,8,1,1,2,1,2,1,2,1,2,
-	1,3,1,3,1,4,1,4,1,4,1,5,1,5,4,5,44,8,5,11,5,12,5,45,1,6,1,6,1,6,1,7,4,7,
-	52,8,7,11,7,12,7,53,1,8,1,8,1,8,0,0,9,0,2,4,6,8,10,12,14,16,0,0,55,0,21,
-	1,0,0,0,2,30,1,0,0,0,4,32,1,0,0,0,6,36,1,0,0,0,8,38,1,0,0,0,10,43,1,0,0,
-	0,12,47,1,0,0,0,14,51,1,0,0,0,16,55,1,0,0,0,18,20,3,2,1,0,19,18,1,0,0,0,
-	20,23,1,0,0,0,21,19,1,0,0,0,21,22,1,0,0,0,22,24,1,0,0,0,23,21,1,0,0,0,24,
-	25,5,0,0,1,25,1,1,0,0,0,26,31,3,4,2,0,27,31,3,8,4,0,28,31,3,12,6,0,29,31,
-	5,5,0,0,30,26,1,0,0,0,30,27,1,0,0,0,30,28,1,0,0,0,30,29,1,0,0,0,31,3,1,
-	0,0,0,32,33,3,6,3,0,33,34,3,10,5,0,34,35,5,5,0,0,35,5,1,0,0,0,36,37,5,1,
-	0,0,37,7,1,0,0,0,38,39,3,10,5,0,39,40,5,5,0,0,40,9,1,0,0,0,41,44,3,16,8,
-	0,42,44,3,14,7,0,43,41,1,0,0,0,43,42,1,0,0,0,44,45,1,0,0,0,45,43,1,0,0,
-	0,45,46,1,0,0,0,46,11,1,0,0,0,47,48,5,4,0,0,48,49,5,5,0,0,49,13,1,0,0,0,
-	50,52,5,2,0,0,51,50,1,0,0,0,52,53,1,0,0,0,53,51,1,0,0,0,53,54,1,0,0,0,54,
-	15,1,0,0,0,55,56,5,3,0,0,56,17,1,0,0,0,5,21,30,43,45,53];
+	8,0,10,0,12,0,23,9,0,1,0,3,0,26,8,0,1,1,1,1,1,1,1,1,3,1,32,8,1,1,2,1,2,
+	1,2,3,2,37,8,2,1,3,1,3,1,4,1,4,3,4,43,8,4,1,5,1,5,4,5,47,8,5,11,5,12,5,
+	48,1,6,1,6,3,6,53,8,6,1,7,4,7,56,8,7,11,7,12,7,57,1,8,1,8,1,8,0,0,9,0,2,
+	4,6,8,10,12,14,16,0,0,63,0,21,1,0,0,0,2,31,1,0,0,0,4,33,1,0,0,0,6,38,1,
+	0,0,0,8,40,1,0,0,0,10,46,1,0,0,0,12,50,1,0,0,0,14,55,1,0,0,0,16,59,1,0,
+	0,0,18,20,3,2,1,0,19,18,1,0,0,0,20,23,1,0,0,0,21,19,1,0,0,0,21,22,1,0,0,
+	0,22,25,1,0,0,0,23,21,1,0,0,0,24,26,5,0,0,1,25,24,1,0,0,0,25,26,1,0,0,0,
+	26,1,1,0,0,0,27,32,3,4,2,0,28,32,3,8,4,0,29,32,3,12,6,0,30,32,5,5,0,0,31,
+	27,1,0,0,0,31,28,1,0,0,0,31,29,1,0,0,0,31,30,1,0,0,0,32,3,1,0,0,0,33,34,
+	3,6,3,0,34,36,3,10,5,0,35,37,5,5,0,0,36,35,1,0,0,0,36,37,1,0,0,0,37,5,1,
+	0,0,0,38,39,5,1,0,0,39,7,1,0,0,0,40,42,3,10,5,0,41,43,5,5,0,0,42,41,1,0,
+	0,0,42,43,1,0,0,0,43,9,1,0,0,0,44,47,3,16,8,0,45,47,3,14,7,0,46,44,1,0,
+	0,0,46,45,1,0,0,0,47,48,1,0,0,0,48,46,1,0,0,0,48,49,1,0,0,0,49,11,1,0,0,
+	0,50,52,5,4,0,0,51,53,5,5,0,0,52,51,1,0,0,0,52,53,1,0,0,0,53,13,1,0,0,0,
+	54,56,5,2,0,0,55,54,1,0,0,0,56,57,1,0,0,0,57,55,1,0,0,0,57,58,1,0,0,0,58,
+	15,1,0,0,0,59,60,5,3,0,0,60,17,1,0,0,0,9,21,25,31,36,42,46,48,52,57];
 
 	private static __ATN: ATN;
 	public static get _ATN(): ATN {
@@ -420,14 +460,14 @@ export class MarkdownContext extends ParserRuleContext {
 		super(parent, invokingState);
     	this.parser = parser;
 	}
-	public EOF(): TerminalNode {
-		return this.getToken(MarkdownParser.EOF, 0);
-	}
 	public block_list(): BlockContext[] {
 		return this.getTypedRuleContexts(BlockContext) as BlockContext[];
 	}
 	public block(i: number): BlockContext {
 		return this.getTypedRuleContext(BlockContext, i) as BlockContext;
+	}
+	public EOF(): TerminalNode {
+		return this.getToken(MarkdownParser.EOF, 0);
 	}
     public get ruleIndex(): number {
     	return MarkdownParser.RULE_markdown;

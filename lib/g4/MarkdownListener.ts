@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Generated from ./lib/g4/Markdown.g4 by ANTLR 4.12.0
 
 import {ParseTreeListener} from "antlr4";
