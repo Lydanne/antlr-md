@@ -67,12 +67,6 @@ MarkdownNode {
       "content": undefined,
       "tag": "block",
     },
-    BlockNode {
-      "attr": {},
-      "body": [],
-      "content": undefined,
-      "tag": "block",
-    },
   ],
   "content": undefined,
   "tag": "markdown",
