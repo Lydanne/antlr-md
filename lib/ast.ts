@@ -6,6 +6,10 @@ export abstract class Node<Attr> {
   }
 
   abstract render(): string;
+
+  setContent(content: string){
+    this.content = content;
+  }
 }
 
 export class MarkdownNode extends Node<{}> {
