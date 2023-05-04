@@ -11,7 +11,7 @@ import { HeaderContext } from "./MarkdownParser";
 import { InlineTextContext } from "./MarkdownParser";
 import { TextContentContext } from "./MarkdownParser";
 import { BlockCodeContext } from "./MarkdownParser";
-import { StrContext } from "./MarkdownParser";
+import { TextContext } from "./MarkdownParser";
 import { InlineCodeContext } from "./MarkdownParser";
 
 
@@ -91,15 +91,15 @@ export default class MarkdownListener extends ParseTreeListener {
 	 */
 	exitBlockCode?: (ctx: BlockCodeContext) => void;
 	/**
-	 * Enter a parse tree produced by `MarkdownParser.str`.
+	 * Enter a parse tree produced by `MarkdownParser.text`.
 	 * @param ctx the parse tree
 	 */
-	enterStr?: (ctx: StrContext) => void;
+	enterText?: (ctx: TextContext) => void;
 	/**
-	 * Exit a parse tree produced by `MarkdownParser.str`.
+	 * Exit a parse tree produced by `MarkdownParser.text`.
 	 * @param ctx the parse tree
 	 */
-	exitStr?: (ctx: StrContext) => void;
+	exitText?: (ctx: TextContext) => void;
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.inlineCode`.
 	 * @param ctx the parse tree

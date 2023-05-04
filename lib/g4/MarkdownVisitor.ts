@@ -11,7 +11,7 @@ import { HeaderContext } from "./MarkdownParser";
 import { InlineTextContext } from "./MarkdownParser";
 import { TextContentContext } from "./MarkdownParser";
 import { BlockCodeContext } from "./MarkdownParser";
-import { StrContext } from "./MarkdownParser";
+import { TextContext } from "./MarkdownParser";
 import { InlineCodeContext } from "./MarkdownParser";
 
 
@@ -66,11 +66,11 @@ export default class MarkdownVisitor<Result> extends ParseTreeVisitor<Result> {
 	 */
 	visitBlockCode?: (ctx: BlockCodeContext) => Result;
 	/**
-	 * Visit a parse tree produced by `MarkdownParser.str`.
+	 * Visit a parse tree produced by `MarkdownParser.text`.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	visitStr?: (ctx: StrContext) => Result;
+	visitText?: (ctx: TextContext) => Result;
 	/**
 	 * Visit a parse tree produced by `MarkdownParser.inlineCode`.
 	 * @param ctx the parse tree

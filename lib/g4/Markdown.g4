@@ -4,17 +4,17 @@ markdown: block* EOF?;
 
 block: inlineHeader | inlineText | blockCode | NL;
 
-inlineHeader: header textContent NL?;
+inlineHeader: NL? header textContent;
 
 header: HEADER;
 
-inlineText: textContent NL?;
+inlineText: NL? textContent;
 
-textContent: (inlineCode | str)+;
+textContent: (inlineCode | text)+;
 
 blockCode: BLOCK_CODE NL?;
 
-str: CHAR+;
+text: CHAR+;
 
 inlineCode: INLINE_CODE;
 
