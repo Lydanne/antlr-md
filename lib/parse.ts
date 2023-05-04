@@ -6,11 +6,11 @@ import MarkdownParser, {
   InlineHeaderContext,
   InlineTextContext,
   MarkdownContext,
-  StrContext,
+  TextContext,
 } from "./g4/MarkdownParser";
 import MarkdownVisitor from "./g4/MarkdownVisitor";
 import { ParseTreeVisitor, ParseTree, CharStreams, CommonTokenStream } from "antlr4";
-import { BlockCodeNode, BlockNode, InlineCodeNode, InlineHeaderNode, InlineTextNode, MarkdownNode, StrNode } from "./ast";
+import { BlockCodeNode, BlockNode, InlineCodeNode, InlineHeaderNode, InlineTextNode, MarkdownNode, TextNode } from "./ast";
 
 export function parse(input: string): MarkdownNode {
   const inputStream = CharStreams.fromString(input);
@@ -53,14 +53,15 @@ class HelperVisitor
     return new InlineTextNode(this.visitChildren(ctx.textContent()));
   };
 
-  visitStr(ctx: StrContext) {
+  visitText(ctx: TextContext) {
     // console.log("visitText", ctx);
-    return new StrNode(ctx.getText());
+    return new TextNode(ctx.getText());
   }
 
   visitInlineCode(ctx: InlineCodeContext) {
     // console.log("visitInlineCode", ctx);
-    return new InlineCodeNode(ctx.getText());
+    const text = ctx.getText();
+    return new InlineCodeNode(text.substring(1, text.length-1));
   }
 
   visitBlockCode(ctx: BlockCodeContext) {
