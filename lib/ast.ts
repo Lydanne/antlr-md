@@ -54,7 +54,7 @@ export class InlineHeaderNode extends Node<{ level: number }> {
     if (!this.body) return "";
     return `<h${
       this.attr?.level
-    } class="inline-header"><span class="inline-header-flag">${"#".repeat(
+    } class="inline-header"><span class="inline-header flag">${"#".repeat(
       this.attr?.level ?? 0
     )}&#32;</span>${this.body.map((node) => node.render()).join("")}</h${
       this.attr?.level
@@ -76,15 +76,15 @@ export class InlineTextNode extends Node<{}> {
   }
 }
 
-export class StrNode extends Node<{}> {
-  tag: string = "str";
+export class TextNode extends Node<{}> {
+  tag: string = "text";
 
   constructor(content: string) {
     super({}, content);
   }
 
   render() {
-    return `<span class="str">${this.content}</span>`;
+    return `<span class="text leaf">${this.content}</span>`;
   }
 }
 
@@ -96,7 +96,7 @@ export class InlineCodeNode extends Node<{}> {
   }
 
   render() {
-    return `<span class="inline-code"><span class="inline-code-flag">\`</span>${this.content}<span class="inline-code-flag">\`</span></span>`;
+    return `<span class="inline-code"><span class="inline-code flag">\`</span><span class="inline-code text leaf">${this.content}</span><span class="inline-code flag">\`</span></span>`;
   }
 }
 
@@ -108,6 +108,6 @@ export class BlockCodeNode extends Node<{ lang: string }> {
   }
 
   render() {
-    return `<pre class="block-code"><span class="block-code-flag">\`\`\`</span><code class="language-${this.attr?.lang}">${this.content}</code><span class="block-code-flag">\`\`\`</span></pre>`;
+    return `<pre class="block-code" before-content="\`\`\`" after-content="\`\`\`"><code class="block-code edit lang-${this.attr?.lang} leaf">${this.content}</code></pre>`;
   }
 }
