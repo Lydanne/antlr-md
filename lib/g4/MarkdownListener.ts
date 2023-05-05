@@ -7,7 +7,6 @@ import {ParseTreeListener} from "antlr4";
 import { MarkdownContext } from "./MarkdownParser";
 import { BlockContext } from "./MarkdownParser";
 import { InlineHeaderContext } from "./MarkdownParser";
-import { HeaderContext } from "./MarkdownParser";
 import { InlineTextContext } from "./MarkdownParser";
 import { TextContentContext } from "./MarkdownParser";
 import { BlockCodeContext } from "./MarkdownParser";
@@ -50,16 +49,6 @@ export default class MarkdownListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	exitInlineHeader?: (ctx: InlineHeaderContext) => void;
-	/**
-	 * Enter a parse tree produced by `MarkdownParser.header`.
-	 * @param ctx the parse tree
-	 */
-	enterHeader?: (ctx: HeaderContext) => void;
-	/**
-	 * Exit a parse tree produced by `MarkdownParser.header`.
-	 * @param ctx the parse tree
-	 */
-	exitHeader?: (ctx: HeaderContext) => void;
 	/**
 	 * Enter a parse tree produced by `MarkdownParser.inlineText`.
 	 * @param ctx the parse tree

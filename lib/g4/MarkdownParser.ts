@@ -29,12 +29,11 @@ export default class MarkdownParser extends Parser {
 	public static readonly RULE_markdown = 0;
 	public static readonly RULE_block = 1;
 	public static readonly RULE_inlineHeader = 2;
-	public static readonly RULE_header = 3;
-	public static readonly RULE_inlineText = 4;
-	public static readonly RULE_textContent = 5;
-	public static readonly RULE_blockCode = 6;
-	public static readonly RULE_text = 7;
-	public static readonly RULE_inlineCode = 8;
+	public static readonly RULE_inlineText = 3;
+	public static readonly RULE_textContent = 4;
+	public static readonly RULE_blockCode = 5;
+	public static readonly RULE_text = 6;
+	public static readonly RULE_inlineCode = 7;
 	public static readonly literalNames: (string | null)[] = [  ];
 	public static readonly symbolicNames: (string | null)[] = [ null, "HEADER", 
                                                              "CHAR", "INLINE_CODE", 
@@ -42,8 +41,8 @@ export default class MarkdownParser extends Parser {
                                                              "NL" ];
 	// tslint:disable:no-trailing-whitespace
 	public static readonly ruleNames: string[] = [
-		"markdown", "block", "inlineHeader", "header", "inlineText", "textContent", 
-		"blockCode", "text", "inlineCode",
+		"markdown", "block", "inlineHeader", "inlineText", "textContent", "blockCode", 
+		"text", "inlineCode",
 	];
 	public get grammarFileName(): string { return "Markdown.g4"; }
 	public get literalNames(): (string | null)[] { return MarkdownParser.literalNames; }
@@ -67,26 +66,26 @@ export default class MarkdownParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 21;
+			this.state = 19;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			while ((((_la) & ~0x1F) === 0 && ((1 << _la) & 62) !== 0)) {
 				{
 				{
-				this.state = 18;
+				this.state = 16;
 				this.block();
 				}
 				}
-				this.state = 23;
+				this.state = 21;
 				this._errHandler.sync(this);
 				_la = this._input.LA(1);
 			}
-			this.state = 25;
+			this.state = 23;
 			this._errHandler.sync(this);
 			switch ( this._interp.adaptivePredict(this._input, 1, this._ctx) ) {
 			case 1:
 				{
-				this.state = 24;
+				this.state = 22;
 				this.match(MarkdownParser.EOF);
 				}
 				break;
@@ -112,34 +111,34 @@ export default class MarkdownParser extends Parser {
 		let localctx: BlockContext = new BlockContext(this, this._ctx, this.state);
 		this.enterRule(localctx, 2, MarkdownParser.RULE_block);
 		try {
-			this.state = 31;
+			this.state = 29;
 			this._errHandler.sync(this);
 			switch ( this._interp.adaptivePredict(this._input, 2, this._ctx) ) {
 			case 1:
 				this.enterOuterAlt(localctx, 1);
 				{
-				this.state = 27;
+				this.state = 25;
 				this.inlineHeader();
 				}
 				break;
 			case 2:
 				this.enterOuterAlt(localctx, 2);
 				{
-				this.state = 28;
+				this.state = 26;
 				this.inlineText();
 				}
 				break;
 			case 3:
 				this.enterOuterAlt(localctx, 3);
 				{
-				this.state = 29;
+				this.state = 27;
 				this.blockCode();
 				}
 				break;
 			case 4:
 				this.enterOuterAlt(localctx, 4);
 				{
-				this.state = 30;
+				this.state = 28;
 				this.match(MarkdownParser.NL);
 				}
 				break;
@@ -167,45 +166,20 @@ export default class MarkdownParser extends Parser {
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 34;
+			this.state = 32;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la===5) {
 				{
-				this.state = 33;
+				this.state = 31;
 				this.match(MarkdownParser.NL);
 				}
 			}
 
-			this.state = 36;
-			this.header();
-			this.state = 37;
-			this.textContent();
-			}
-		}
-		catch (re) {
-			if (re instanceof RecognitionException) {
-				localctx.exception = re;
-				this._errHandler.reportError(this, re);
-				this._errHandler.recover(this, re);
-			} else {
-				throw re;
-			}
-		}
-		finally {
-			this.exitRule();
-		}
-		return localctx;
-	}
-	// @RuleVersion(0)
-	public header(): HeaderContext {
-		let localctx: HeaderContext = new HeaderContext(this, this._ctx, this.state);
-		this.enterRule(localctx, 6, MarkdownParser.RULE_header);
-		try {
-			this.enterOuterAlt(localctx, 1);
-			{
-			this.state = 39;
+			this.state = 34;
 			this.match(MarkdownParser.HEADER);
+			this.state = 35;
+			this.textContent();
 			}
 		}
 		catch (re) {
@@ -225,22 +199,22 @@ export default class MarkdownParser extends Parser {
 	// @RuleVersion(0)
 	public inlineText(): InlineTextContext {
 		let localctx: InlineTextContext = new InlineTextContext(this, this._ctx, this.state);
-		this.enterRule(localctx, 8, MarkdownParser.RULE_inlineText);
+		this.enterRule(localctx, 6, MarkdownParser.RULE_inlineText);
 		let _la: number;
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 42;
+			this.state = 38;
 			this._errHandler.sync(this);
 			_la = this._input.LA(1);
 			if (_la===5) {
 				{
-				this.state = 41;
+				this.state = 37;
 				this.match(MarkdownParser.NL);
 				}
 			}
 
-			this.state = 44;
+			this.state = 40;
 			this.textContent();
 			}
 		}
@@ -261,30 +235,30 @@ export default class MarkdownParser extends Parser {
 	// @RuleVersion(0)
 	public textContent(): TextContentContext {
 		let localctx: TextContentContext = new TextContentContext(this, this._ctx, this.state);
-		this.enterRule(localctx, 10, MarkdownParser.RULE_textContent);
+		this.enterRule(localctx, 8, MarkdownParser.RULE_textContent);
 		try {
 			let _alt: number;
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 48;
+			this.state = 44;
 			this._errHandler.sync(this);
 			_alt = 1;
 			do {
 				switch (_alt) {
 				case 1:
 					{
-					this.state = 48;
+					this.state = 44;
 					this._errHandler.sync(this);
 					switch (this._input.LA(1)) {
 					case 3:
 						{
-						this.state = 46;
+						this.state = 42;
 						this.inlineCode();
 						}
 						break;
 					case 2:
 						{
-						this.state = 47;
+						this.state = 43;
 						this.text();
 						}
 						break;
@@ -296,7 +270,7 @@ export default class MarkdownParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				this.state = 50;
+				this.state = 46;
 				this._errHandler.sync(this);
 				_alt = this._interp.adaptivePredict(this._input, 6, this._ctx);
 			} while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
@@ -319,18 +293,18 @@ export default class MarkdownParser extends Parser {
 	// @RuleVersion(0)
 	public blockCode(): BlockCodeContext {
 		let localctx: BlockCodeContext = new BlockCodeContext(this, this._ctx, this.state);
-		this.enterRule(localctx, 12, MarkdownParser.RULE_blockCode);
+		this.enterRule(localctx, 10, MarkdownParser.RULE_blockCode);
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 52;
+			this.state = 48;
 			this.match(MarkdownParser.BLOCK_CODE);
-			this.state = 54;
+			this.state = 50;
 			this._errHandler.sync(this);
 			switch ( this._interp.adaptivePredict(this._input, 7, this._ctx) ) {
 			case 1:
 				{
-				this.state = 53;
+				this.state = 49;
 				this.match(MarkdownParser.NL);
 				}
 				break;
@@ -354,12 +328,12 @@ export default class MarkdownParser extends Parser {
 	// @RuleVersion(0)
 	public text(): TextContext {
 		let localctx: TextContext = new TextContext(this, this._ctx, this.state);
-		this.enterRule(localctx, 14, MarkdownParser.RULE_text);
+		this.enterRule(localctx, 12, MarkdownParser.RULE_text);
 		try {
 			let _alt: number;
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 57;
+			this.state = 53;
 			this._errHandler.sync(this);
 			_alt = 1;
 			do {
@@ -367,7 +341,7 @@ export default class MarkdownParser extends Parser {
 				case 1:
 					{
 					{
-					this.state = 56;
+					this.state = 52;
 					this.match(MarkdownParser.CHAR);
 					}
 					}
@@ -375,7 +349,7 @@ export default class MarkdownParser extends Parser {
 				default:
 					throw new NoViableAltException(this);
 				}
-				this.state = 59;
+				this.state = 55;
 				this._errHandler.sync(this);
 				_alt = this._interp.adaptivePredict(this._input, 8, this._ctx);
 			} while (_alt !== 2 && _alt !== ATN.INVALID_ALT_NUMBER);
@@ -398,11 +372,11 @@ export default class MarkdownParser extends Parser {
 	// @RuleVersion(0)
 	public inlineCode(): InlineCodeContext {
 		let localctx: InlineCodeContext = new InlineCodeContext(this, this._ctx, this.state);
-		this.enterRule(localctx, 16, MarkdownParser.RULE_inlineCode);
+		this.enterRule(localctx, 14, MarkdownParser.RULE_inlineCode);
 		try {
 			this.enterOuterAlt(localctx, 1);
 			{
-			this.state = 61;
+			this.state = 57;
 			this.match(MarkdownParser.INLINE_CODE);
 			}
 		}
@@ -421,25 +395,24 @@ export default class MarkdownParser extends Parser {
 		return localctx;
 	}
 
-	public static readonly _serializedATN: number[] = [4,1,5,64,2,0,7,0,2,1,
-	7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,7,7,2,8,7,8,1,0,5,0,20,
-	8,0,10,0,12,0,23,9,0,1,0,3,0,26,8,0,1,1,1,1,1,1,1,1,3,1,32,8,1,1,2,3,2,
-	35,8,2,1,2,1,2,1,2,1,3,1,3,1,4,3,4,43,8,4,1,4,1,4,1,5,1,5,4,5,49,8,5,11,
-	5,12,5,50,1,6,1,6,3,6,55,8,6,1,7,4,7,58,8,7,11,7,12,7,59,1,8,1,8,1,8,0,
-	0,9,0,2,4,6,8,10,12,14,16,0,0,65,0,21,1,0,0,0,2,31,1,0,0,0,4,34,1,0,0,0,
-	6,39,1,0,0,0,8,42,1,0,0,0,10,48,1,0,0,0,12,52,1,0,0,0,14,57,1,0,0,0,16,
-	61,1,0,0,0,18,20,3,2,1,0,19,18,1,0,0,0,20,23,1,0,0,0,21,19,1,0,0,0,21,22,
-	1,0,0,0,22,25,1,0,0,0,23,21,1,0,0,0,24,26,5,0,0,1,25,24,1,0,0,0,25,26,1,
-	0,0,0,26,1,1,0,0,0,27,32,3,4,2,0,28,32,3,8,4,0,29,32,3,12,6,0,30,32,5,5,
-	0,0,31,27,1,0,0,0,31,28,1,0,0,0,31,29,1,0,0,0,31,30,1,0,0,0,32,3,1,0,0,
-	0,33,35,5,5,0,0,34,33,1,0,0,0,34,35,1,0,0,0,35,36,1,0,0,0,36,37,3,6,3,0,
-	37,38,3,10,5,0,38,5,1,0,0,0,39,40,5,1,0,0,40,7,1,0,0,0,41,43,5,5,0,0,42,
-	41,1,0,0,0,42,43,1,0,0,0,43,44,1,0,0,0,44,45,3,10,5,0,45,9,1,0,0,0,46,49,
-	3,16,8,0,47,49,3,14,7,0,48,46,1,0,0,0,48,47,1,0,0,0,49,50,1,0,0,0,50,48,
-	1,0,0,0,50,51,1,0,0,0,51,11,1,0,0,0,52,54,5,4,0,0,53,55,5,5,0,0,54,53,1,
-	0,0,0,54,55,1,0,0,0,55,13,1,0,0,0,56,58,5,2,0,0,57,56,1,0,0,0,58,59,1,0,
-	0,0,59,57,1,0,0,0,59,60,1,0,0,0,60,15,1,0,0,0,61,62,5,3,0,0,62,17,1,0,0,
-	0,9,21,25,31,34,42,48,50,54,59];
+	public static readonly _serializedATN: number[] = [4,1,5,60,2,0,7,0,2,1,
+	7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,7,7,7,1,0,5,0,18,8,0,10,0,
+	12,0,21,9,0,1,0,3,0,24,8,0,1,1,1,1,1,1,1,1,3,1,30,8,1,1,2,3,2,33,8,2,1,
+	2,1,2,1,2,1,3,3,3,39,8,3,1,3,1,3,1,4,1,4,4,4,45,8,4,11,4,12,4,46,1,5,1,
+	5,3,5,51,8,5,1,6,4,6,54,8,6,11,6,12,6,55,1,7,1,7,1,7,0,0,8,0,2,4,6,8,10,
+	12,14,0,0,62,0,19,1,0,0,0,2,29,1,0,0,0,4,32,1,0,0,0,6,38,1,0,0,0,8,44,1,
+	0,0,0,10,48,1,0,0,0,12,53,1,0,0,0,14,57,1,0,0,0,16,18,3,2,1,0,17,16,1,0,
+	0,0,18,21,1,0,0,0,19,17,1,0,0,0,19,20,1,0,0,0,20,23,1,0,0,0,21,19,1,0,0,
+	0,22,24,5,0,0,1,23,22,1,0,0,0,23,24,1,0,0,0,24,1,1,0,0,0,25,30,3,4,2,0,
+	26,30,3,6,3,0,27,30,3,10,5,0,28,30,5,5,0,0,29,25,1,0,0,0,29,26,1,0,0,0,
+	29,27,1,0,0,0,29,28,1,0,0,0,30,3,1,0,0,0,31,33,5,5,0,0,32,31,1,0,0,0,32,
+	33,1,0,0,0,33,34,1,0,0,0,34,35,5,1,0,0,35,36,3,8,4,0,36,5,1,0,0,0,37,39,
+	5,5,0,0,38,37,1,0,0,0,38,39,1,0,0,0,39,40,1,0,0,0,40,41,3,8,4,0,41,7,1,
+	0,0,0,42,45,3,14,7,0,43,45,3,12,6,0,44,42,1,0,0,0,44,43,1,0,0,0,45,46,1,
+	0,0,0,46,44,1,0,0,0,46,47,1,0,0,0,47,9,1,0,0,0,48,50,5,4,0,0,49,51,5,5,
+	0,0,50,49,1,0,0,0,50,51,1,0,0,0,51,11,1,0,0,0,52,54,5,2,0,0,53,52,1,0,0,
+	0,54,55,1,0,0,0,55,53,1,0,0,0,55,56,1,0,0,0,56,13,1,0,0,0,57,58,5,3,0,0,
+	58,15,1,0,0,0,9,19,23,29,32,38,44,46,50,55];
 
 	private static __ATN: ATN;
 	public static get _ATN(): ATN {
@@ -539,8 +512,8 @@ export class InlineHeaderContext extends ParserRuleContext {
 		super(parent, invokingState);
     	this.parser = parser;
 	}
-	public header(): HeaderContext {
-		return this.getTypedRuleContext(HeaderContext, 0) as HeaderContext;
+	public HEADER(): TerminalNode {
+		return this.getToken(MarkdownParser.HEADER, 0);
 	}
 	public textContent(): TextContentContext {
 		return this.getTypedRuleContext(TextContentContext, 0) as TextContentContext;
@@ -565,38 +538,6 @@ export class InlineHeaderContext extends ParserRuleContext {
 	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
 		if (visitor.visitInlineHeader) {
 			return visitor.visitInlineHeader(this);
-		} else {
-			return visitor.visitChildren(this);
-		}
-	}
-}
-
-
-export class HeaderContext extends ParserRuleContext {
-	constructor(parser?: MarkdownParser, parent?: ParserRuleContext, invokingState?: number) {
-		super(parent, invokingState);
-    	this.parser = parser;
-	}
-	public HEADER(): TerminalNode {
-		return this.getToken(MarkdownParser.HEADER, 0);
-	}
-    public get ruleIndex(): number {
-    	return MarkdownParser.RULE_header;
-	}
-	public enterRule(listener: MarkdownListener): void {
-	    if(listener.enterHeader) {
-	 		listener.enterHeader(this);
-		}
-	}
-	public exitRule(listener: MarkdownListener): void {
-	    if(listener.exitHeader) {
-	 		listener.exitHeader(this);
-		}
-	}
-	// @Override
-	public accept<Result>(visitor: MarkdownVisitor<Result>): Result {
-		if (visitor.visitHeader) {
-			return visitor.visitHeader(this);
 		} else {
 			return visitor.visitChildren(this);
 		}

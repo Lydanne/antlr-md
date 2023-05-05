@@ -4,9 +4,7 @@ markdown: block* EOF?;
 
 block: inlineHeader | inlineText | blockCode | NL;
 
-inlineHeader: NL? header textContent;
-
-header: HEADER;
+inlineHeader: NL? HEADER textContent;
 
 inlineText: NL? textContent;
 

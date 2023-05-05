@@ -7,7 +7,6 @@ import {ParseTreeVisitor} from 'antlr4';
 import { MarkdownContext } from "./MarkdownParser";
 import { BlockContext } from "./MarkdownParser";
 import { InlineHeaderContext } from "./MarkdownParser";
-import { HeaderContext } from "./MarkdownParser";
 import { InlineTextContext } from "./MarkdownParser";
 import { TextContentContext } from "./MarkdownParser";
 import { BlockCodeContext } from "./MarkdownParser";
@@ -41,12 +40,6 @@ export default class MarkdownVisitor<Result> extends ParseTreeVisitor<Result> {
 	 * @return the visitor result
 	 */
 	visitInlineHeader?: (ctx: InlineHeaderContext) => Result;
-	/**
-	 * Visit a parse tree produced by `MarkdownParser.header`.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	visitHeader?: (ctx: HeaderContext) => Result;
 	/**
 	 * Visit a parse tree produced by `MarkdownParser.inlineText`.
 	 * @param ctx the parse tree

@@ -43,7 +43,7 @@ class HelperVisitor
     // console.log("visitHeader", ctx);
     return new InlineHeaderNode(
       {
-        level: ctx.header().getText().length - 1,
+        level: ctx.HEADER().getText().length - 1,
       },
       this.visitChildren(ctx.textContent())
     );
