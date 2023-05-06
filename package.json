@@ -1,6 +1,6 @@
 {
   "name": "antlr-md",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dist/antlr-md.cjs",
   "module": "./dist/antlr-md.mjs",
   "exports": {
