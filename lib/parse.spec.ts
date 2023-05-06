@@ -2,7 +2,6 @@ import { describe, expect, it } from "vitest";
 import { parse } from "./parse";
 import { readFileSync } from "fs";
 import { join } from "path";
-import { render } from "./render";
 
 describe("parse", () => {
   it("should standard ast", () => {
