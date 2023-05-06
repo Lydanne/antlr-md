@@ -18,6 +18,7 @@ import {
 import {
   BlockCodeNode,
   BlockNode,
+  FlagNode,
   InlineCodeNode,
   InlineHeaderNode,
   InlineTextNode,
@@ -54,11 +55,12 @@ class HelperVisitor
 
   visitInlineHeader(ctx: InlineHeaderContext) {
     // console.log("visitHeader", ctx);
+    const flagText = ctx.HEADER().getText();
     return new InlineHeaderNode(
       {
-        level: ctx.HEADER().getText().length - 1,
+        level: flagText.length - 1,
       },
-      this.visitChildren(ctx.textContent())
+      [new FlagNode(flagText)].concat(this.visitChildren(ctx.textContent()))
     );
   }
 

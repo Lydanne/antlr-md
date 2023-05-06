@@ -7,7 +7,7 @@ export abstract class Node<Attr> {
 
   abstract render(): string;
 
-  setContent(content: string){
+  setContent(content: string) {
     this.content = content;
   }
 }
@@ -52,13 +52,9 @@ export class InlineHeaderNode extends Node<{ level: number }> {
 
   render() {
     if (!this.body) return "";
-    return `<h${
-      this.attr?.level
-    } class="inline-header"><span class="inline-header flag">${"#".repeat(
-      this.attr?.level ?? 0
-    )}&#32;</span>${this.body.map((node) => node.render()).join("")}</h${
-      this.attr?.level
-    }>`;
+    return `<h${this.attr?.level} class="inline-header">${this.body
+      .map((node) => node.render())
+      .join("")}</h${this.attr?.level}>`;
   }
 }
 
@@ -109,5 +105,17 @@ export class BlockCodeNode extends Node<{ lang: string }> {
 
   render() {
     return `<pre class="block-code" before-content="\`\`\`" after-content="\`\`\`"><code class="block-code edit lang-${this.attr?.lang} leaf">${this.content}</code></pre>`;
+  }
+}
+
+export class FlagNode extends Node<{}> {
+  tag: string = "flag";
+
+  constructor(content: string) {
+    super({}, content);
+  }
+
+  render() {
+    return `<span class="flag leaf">${this.content}</span>`;
   }
 }
