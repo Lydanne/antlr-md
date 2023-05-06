@@ -9,17 +9,29 @@ MarkdownNode {
             "level": 1,
           },
           "body": [
+            FlagNode {
+              "attr": {},
+              "body": undefined,
+              "content": "# ",
+              "tag": "flag",
+            },
             TextNode {
               "attr": {},
               "body": undefined,
-              "content": "你好",
+              "content": "Markdown ",
               "tag": "text",
             },
             InlineCodeNode {
               "attr": {},
               "body": undefined,
-              "content": "今天",
+              "content": "Parser",
               "tag": "inline-code",
+            },
+            TextNode {
+              "attr": {},
+              "body": undefined,
+              "content": " Test Header",
+              "tag": "text",
             },
           ],
           "content": undefined,
@@ -31,41 +43,7 @@ MarkdownNode {
     },
     BlockNode {
       "attr": {},
-      "body": [
-        InlineTextNode {
-          "attr": {},
-          "body": [
-            TextNode {
-              "attr": {},
-              "body": undefined,
-              "content": "好呀好呀",
-              "tag": "text",
-            },
-          ],
-          "content": undefined,
-          "tag": "inline-text",
-        },
-      ],
-      "content": undefined,
-      "tag": "block",
-    },
-    BlockNode {
-      "attr": {},
-      "body": [
-        InlineTextNode {
-          "attr": {},
-          "body": [
-            TextNode {
-              "attr": {},
-              "body": undefined,
-              "content": "好呀好呀",
-              "tag": "text",
-            },
-          ],
-          "content": undefined,
-          "tag": "inline-text",
-        },
-      ],
+      "body": [],
       "content": undefined,
       "tag": "block",
     },
