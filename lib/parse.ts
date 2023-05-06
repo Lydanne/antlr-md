@@ -9,8 +9,21 @@ import MarkdownParser, {
   TextContext,
 } from "./g4/MarkdownParser";
 import MarkdownVisitor from "./g4/MarkdownVisitor";
-import { ParseTreeVisitor, ParseTree, CharStreams, CommonTokenStream } from "antlr4";
-import { BlockCodeNode, BlockNode, InlineCodeNode, InlineHeaderNode, InlineTextNode, MarkdownNode, TextNode } from "./ast";
+import {
+  ParseTreeVisitor,
+  ParseTree,
+  CharStreams,
+  CommonTokenStream,
+} from "antlr4";
+import {
+  BlockCodeNode,
+  BlockNode,
+  InlineCodeNode,
+  InlineHeaderNode,
+  InlineTextNode,
+  MarkdownNode,
+  TextNode,
+} from "./ast";
 
 export function parse(input: string): MarkdownNode {
   const inputStream = CharStreams.fromString(input);
@@ -49,9 +62,9 @@ class HelperVisitor
     );
   }
 
-  visitInlineText(ctx: InlineTextContext){
+  visitInlineText(ctx: InlineTextContext) {
     return new InlineTextNode(this.visitChildren(ctx.textContent()));
-  };
+  }
 
   visitText(ctx: TextContext) {
     // console.log("visitText", ctx);
@@ -61,7 +74,7 @@ class HelperVisitor
   visitInlineCode(ctx: InlineCodeContext) {
     // console.log("visitInlineCode", ctx);
     const text = ctx.getText();
-    return new InlineCodeNode(text.substring(1, text.length-1));
+    return new InlineCodeNode(text.substring(1, text.length - 1));
   }
 
   visitBlockCode(ctx: BlockCodeContext) {
@@ -70,9 +83,11 @@ class HelperVisitor
     const firstLnIndex = text.indexOf("\n");
     const lang = text.substring(3, firstLnIndex);
     const content = text.substring(firstLnIndex + 1, text.length - 3);
-    return new BlockCodeNode({
-      lang,
-    },
-    content);
+    return new BlockCodeNode(
+      {
+        lang,
+      },
+      content
+    );
   }
 }
