@@ -10,7 +10,7 @@ inlineText: NL? textContent;
 
 textContent: (inlineCode | text)+;
 
-blockCode: BLOCK_CODE NL?;
+blockCode: NL? BLOCK_CODE;
 
 text: CHAR+;
 
@@ -22,9 +22,14 @@ CHAR: ~[\r\n];
 
 INLINE_CODE: BACKTICK ~[\r\n`]+ BACKTICK;
 
-BLOCK_CODE: '```' ~[`]+ '```';
+BLOCK_CODE:
+	BLOCK_CODE_FLAG CODE_LANG? NL .*? NL? BLOCK_CODE_FLAG;
 
 NL: '\r'? '\n';
+
+fragment CODE_LANG: ~[\t\r\n`]+;
+
+fragment BLOCK_CODE_FLAG: '```';
 
 fragment BACKTICK: '`';
 

@@ -104,7 +104,7 @@ export class BlockCodeNode extends Node<{ lang: string }> {
   }
 
   render() {
-    return `<pre class="block-code" before-content="\`\`\`" after-content="\`\`\`"><code class="block-code edit lang-${this.attr?.lang} leaf">${this.content}</code></pre>`;
+    return `<div class="block-code leaf" before-content="\`\`\`${this.attr?.lang}\n" after-content="\`\`\`" >${this.content}</div>`;
   }
 }
 
